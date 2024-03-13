@@ -9,3 +9,4 @@
 ## Сервисы
 - [Miro](https://miro.com/app/board/uXjVNqy_iNg=/)
 - [Yandex Tracker](https://tracker.yandex.ru/agile/board/1)
+- [Видеопрезентация](https://disk.yandex.ru/i/cDcGX5gsF9r1Hw)
