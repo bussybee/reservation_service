@@ -11,4 +11,4 @@
 - [Yandex Tracker](https://tracker.yandex.ru/agile/board/1)
 - [Видеопрезентация](https://disk.yandex.ru/i/cDcGX5gsF9r1Hw)
 - [Техническое задание](https://github.com/bussybee/reservation_service/blob/main/Техническое%20задание%20(3).pdf)
-- [Сопроводительное письмо](https://github.com/bussybee/reservation_service/blob/main/Сопроводительное%20письмо.pdf)
+- [Сопроводительное письмо](https://github.com/bussybee/reservation_service/blob/main/Документация/Техническое%20задание/Сопроводительное%20письмо.pdf)
