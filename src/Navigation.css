@@ -1,0 +1,62 @@
+.header {
+    display: flex;
+    justify-content: flex-end;
+    /* Выравниваем элементы в шапке к правому краю */
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+
+.logo {
+    float: left;
+}
+
+
+.navigation {
+    margin-left: auto;
+    /* Отодвигаем навигацию вправо */
+}
+
+.navigation ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+}
+
+.navigation ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+.navigation button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    outline: none;
+}
+
+.navigation button.active {
+    border-bottom: 2px solid white;
+  }
+
+  .nav-button {
+    color: #666; /* Серый цвет текста */
+    text-decoration: none; /* Убираем стандартное подчеркивание */
+    border: none; /* Убираем границы */
+    background: none; /* Убираем фон */
+    padding: 0; /* Убираем отступы */
+    cursor: pointer; /* Устанавливаем курсор в виде стрелки */
+
+    /* Добавляем подчеркивание только при наведении и нажатии */
+    transition: color 0.3s ease;
+}
+
+.nav-button:hover,
+.nav-button:focus {
+    text-decoration: underline; /* Добавляем подчеркивание при наведении */
+    color: #fff; /* Серый цвет текста для активного состояния */
+}
