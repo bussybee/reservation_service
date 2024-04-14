@@ -1,0 +1,88 @@
+.registration-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.registration-form {
+    width: 100%;
+    max-width: 500px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.password-input {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.submit-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+.nav-button {
+    color: #000000;
+    /* Серый цвет текста */
+    text-decoration: none;
+    /* Убираем стандартное подчеркивание */
+    border: none;
+    /* Убираем границы */
+    background: none;
+    /* Убираем фон */
+    padding: 0;
+    /* Убираем отступы */
+    cursor: pointer;
+    /* Устанавливаем курсор в виде стрелки */
+
+    /* Добавляем подчеркивание только при наведении и нажатии */
+    transition: color 0.3s ease;
+}
+
+.nav-button:hover,
+.nav-button:focus {
+    text-decoration: underline;
+    /* Добавляем подчеркивание при наведении */
+    color: #a2a2a2;
+    /* Серый цвет текста для активного состояния */
+}

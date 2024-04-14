@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Navigation.css';
 import { Link } from 'react-router-dom';
+import { isUserAuthenticated } from './utils/auth';
 
 function Navigation() {
     const [activeButton, setActiveButton] = useState('');
@@ -8,6 +9,8 @@ function Navigation() {
     const handleButtonClick = (buttonName) => {
         setActiveButton(buttonName);
     };
+
+    
 
     return (
         <header className="header">
@@ -43,11 +46,11 @@ function Navigation() {
                     </li>
                     <li>
                         <Link
-                            to="/personalaccount"
+                            to="/registrationPage"
                             className={`nav-button ${activeButton === 'button 4' ? 'active' : ''}`}
                             onClick={() => handleButtonClick('button 4')}
                         >
-                            Личный кабинет
+                            Вход/Регистрация
                         </Link>
                     </li>
                 </ul>
