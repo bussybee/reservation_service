@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './Centers.css'; 
+import './Centers.css';
+import { useNavigate } from 'react-router-dom';
 
 function CentersPage() {
     const slides = [
@@ -19,6 +20,21 @@ function CentersPage() {
     };
 
     const [currentSlide, setCurrentSlide] = useState(0);
+
+    const navigate = useNavigate();
+
+    const handleFitnessButtonClick = () => {
+        navigate("/fitness");
+    };
+
+    const handleSpaButtonClick = () => {
+        navigate("/spaCenters");
+    };
+
+    const handleBsButtonClick = () => {
+        navigate("/beautySalons");
+    };
+
 
     return (
         <div className="centers-page">
@@ -42,15 +58,15 @@ function CentersPage() {
                 </div>
 
                 <div className="text-and-button">
-                    <button className="transparent-button">Какая-то инфа о фитнесе, 
-                    при нажатии на кнопку переходит на список центров</button>
+                    <button className="transparent-button" onClick={handleFitnessButtonClick}>Какая-то инфа о фитнесе,
+                        при нажатии на кнопку переходит на список центров</button>
                 </div>
             </div>
 
             <div className="content-wrapper">
                 <div className="text-and-button">
-                    <button className="transparent-button">Какая-то инфа о спа, 
-                    при нажатии на кнопку переходит на список центровр</button>
+                    <button className="transparent-button"onClick={handleSpaButtonClick}>Какая-то инфа о спа,
+                        при нажатии на кнопку переходит на список центровр</button>
                 </div>
 
                 <div className="image-container">
@@ -64,8 +80,8 @@ function CentersPage() {
                 </div>
 
                 <div className="text-and-button">
-                    <button className="transparent-button">Какая-то инфа о салонах красоты, 
-                    при нажатии на кнопку переходит на список центров</button>
+                    <button className="transparent-button" onClick={handleBsButtonClick}>Какая-то инфа о салонах красоты,
+                        при нажатии на кнопку переходит на список центров</button>
                 </div>
             </div>
         </div>

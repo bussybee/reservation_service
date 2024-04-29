@@ -1,0 +1,73 @@
+.beauty-salon-page {
+    padding: 20px;
+}
+
+.page-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.beauty-salon-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.beauty-salon-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.center-image-container {
+    height: 200px;
+    overflow: hidden;
+}
+
+.center-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.center-info {
+    padding: 20px;
+}
+
+.center-name {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.center-address {
+    margin-bottom: 5px;
+}
+
+.center-rating {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+.transparent-button-bs {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #000000;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+.transparent-button-bs:hover {
+    color: #6a6a6a;
+}
