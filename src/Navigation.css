@@ -1,7 +1,6 @@
 .header {
     display: flex;
     justify-content: flex-end;
-    /* Выравниваем элементы в шапке к правому краю */
     background-color: #333;
     color: white;
     padding: 10px;
@@ -15,7 +14,6 @@
 
 .navigation {
     margin-left: auto;
-    /* Отодвигаем навигацию вправо */
 }
 
 .navigation ul {
@@ -44,19 +42,18 @@
   }
 
   .nav-button {
-    color: #666; /* Серый цвет текста */
-    text-decoration: none; /* Убираем стандартное подчеркивание */
-    border: none; /* Убираем границы */
-    background: none; /* Убираем фон */
-    padding: 0; /* Убираем отступы */
-    cursor: pointer; /* Устанавливаем курсор в виде стрелки */
+    color: #ffffff; 
+    text-decoration: none; 
+    border: none; 
+    background: none; 
+    padding: 0; 
+    cursor: pointer; 
 
-    /* Добавляем подчеркивание только при наведении и нажатии */
     transition: color 0.3s ease;
 }
 
 .nav-button:hover,
 .nav-button:focus {
-    text-decoration: underline; /* Добавляем подчеркивание при наведении */
-    color: #fff; /* Серый цвет текста для активного состояния */
+    text-decoration: underline;
+    color: #6c6c6c; 
 }

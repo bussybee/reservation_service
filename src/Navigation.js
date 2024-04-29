@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Navigation.css';
 import { Link } from 'react-router-dom';
-import { isUserAuthenticated } from './utils/auth';
 
-function Navigation() {
+function Navigation({ isAuthenticated, setIsAuthenticated }) {
     const [activeButton, setActiveButton] = useState('');
-
+    useEffect(() => {
+      setIsAuthenticated(localStorage.getItem('isAuthenticated') === 'true');
+    }, [setIsAuthenticated]);
+  
     const handleButtonClick = (buttonName) => {
-        setActiveButton(buttonName);
+      setActiveButton(buttonName);
     };
-
-    
-
+  
+    const handleLogout = () => {
+      localStorage.removeItem('isAuthenticated');
+      setIsAuthenticated(false);
+    };
     return (
         <header className="header">
             <div className="logo">Логотип</div>
@@ -44,15 +48,19 @@ function Navigation() {
                             Обратная связь
                         </Link>
                     </li>
-                    <li>
-                        <Link
-                            to="/registrationPage"
-                            className={`nav-button ${activeButton === 'button 4' ? 'active' : ''}`}
-                            onClick={() => handleButtonClick('button 4')}
-                        >
-                            Вход/Регистрация
-                        </Link>
-                    </li>
+                    {isAuthenticated ? (
+                        <li>
+                            <Link to="/personalaccount" className="nav-button">
+                                Личный кабинет
+                            </Link>
+                        </li>
+                    ) : (
+                        <li>
+                            <Link to="/registrationPage" className="nav-button">
+                                Вход/Регистрация
+                            </Link>
+                        </li>
+                    )}
                 </ul>
             </nav>
         </header>

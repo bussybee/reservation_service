@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Centers.css'; // Подключаем файл стилей для страницы Centers
+import './Centers.css'; 
 
 function CentersPage() {
     const slides = [
@@ -22,7 +22,6 @@ function CentersPage() {
 
     return (
         <div className="centers-page">
-            {/* Автономная карусель */}
             <div className="carousel-container">
                 <div className="carousel">
                     <div className="slides" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
@@ -35,43 +34,35 @@ function CentersPage() {
                 <button className="next" onClick={nextSlide}>{">"}</button>
             </div>
 
-            {/* Заголовок */}
             <h1 className="category-header">Выберите Категорию</h1>
 
-            {/* Разделение страницы */}
             <div className="content-wrapper">
-                {/* Картинка слева */}
                 <div className="image-container">
                     <img src="path_to_your_image" alt="Center" className='center-image' />
                 </div>
 
-                {/* Текст и кнопка справа */}
                 <div className="text-and-button">
                     <button className="transparent-button">Какая-то инфа о фитнесе, 
                     при нажатии на кнопку переходит на список центров</button>
                 </div>
             </div>
 
-            <div className="second-content-wrapper">
-                {/* Текст слева */}
+            <div className="content-wrapper">
                 <div className="text-and-button">
                     <button className="transparent-button">Какая-то инфа о спа, 
                     при нажатии на кнопку переходит на список центровр</button>
                 </div>
 
-                {/* Картинка справа */}
                 <div className="image-container">
                     <img src="path_to_your_image" alt="Center" className='center-image' />
                 </div>
             </div>
 
-            <div className="third-content-wrapper">
-                {/* Картинка справа */}
+            <div className="content-wrapper">
                 <div className="image-container">
                     <img src="path_to_your_image" alt="Center" className='center-image' />
                 </div>
 
-                {/* Текст слева */}
                 <div className="text-and-button">
                     <button className="transparent-button">Какая-то инфа о салонах красоты, 
                     при нажатии на кнопку переходит на список центров</button>

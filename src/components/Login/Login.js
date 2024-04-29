@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import './Login.css'; // Подключаем файл стилей для страницы входа
+import './Login.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from "react-router-dom";
 
-function LoginPage() {
+function LoginPage({setIsAuthenticated}) {
+
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         emailOrPhone: '',
         password: '',
-        showPassword: false // Добавляем состояние для отображения/скрытия пароля
+        showPassword: false 
     });
 
     const handleChange = (e) => {
@@ -27,13 +31,15 @@ function LoginPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData); // Здесь можно добавить логику для аутентификации пользователя
-        // Очистка формы после отправки
+        console.log(formData); 
         setFormData({
             emailOrPhone: '',
             password: '',
-            showPassword: false // Сбрасываем состояние отображения пароля
+            showPassword: false 
         });
+
+        setIsAuthenticated(true);
+        navigate("/personalaccount");
     };
 
     return (

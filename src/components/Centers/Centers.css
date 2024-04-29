@@ -5,26 +5,20 @@
 }
 
 .carousel {
-    width: 100%;
-    /* Устанавливаем ширину контейнера на всю доступную ширину */
+    width: 100%; 
     overflow: hidden;
-    /* Скрываем все элементы за пределами контейнера */
 }
 
 .slides {
     display: block;
     width: 100%;
-    /* Устанавливаем ширину равную ширине всех слайдов */
     transition: transform 0.5s ease;
-    /* Добавляем плавный переход при переключении слайдов */
     white-space: nowrap;
-    /* Предотвращаем перенос на следующую строку */
 }
 
 .slide {
     display: inline-block;
     width: 100%;
-    /* Устанавливаем ширину слайда равной ширине контейнера */
     background-size: cover;
     background-position: center;
     height: 300px;
@@ -32,14 +26,12 @@
 
 .slide:not(:last-child) {
     margin-right: 0;
-    /* Убираем отступ справа у всех слайдов, кроме последнего */
 }
 
 .prev {
     position: absolute;
     top: 50%;
     left: 0;
-    /* Перемещаем кнопку влево */
     transform: translateY(-50%);
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
@@ -55,7 +47,6 @@
     position: absolute;
     top: 50%;
     right: 0;
-    /* Перемещаем кнопку вправо */
     transform: translateY(-50%);
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
@@ -70,22 +61,19 @@
 .prev:hover,
 .next:hover {
     opacity: 1;
-    /* При наведении на кнопку, увеличиваем прозрачность до полного */
 }
 
 .centers-page {
-    /* Стили для контейнера страницы */
 }
 
 .category-header {
-    /* Стили для заголовка "Выберите Категорию" */
 }
 
 .content-wrapper {
-    /* Стили для разделения контента */
     display: flex;
     align-items: center;
-    height: calc(100hv - 200px);
+    /* height: calc(100hv - 200px); */
+    min-height: 150px;
 }
 
 .image-container {
@@ -102,52 +90,18 @@
 }
 
 .transparent-button {
-    /* Стили для прозрачной кнопки */
     width: 100%;
+    height: 100%;
     background-color: transparent;
     border: none;
     cursor: pointer;
-    padding: 62px 20px;
+    /* padding: 62px 20px; */
+    min-height: 150px;
+    text-align: center;
     transition: background-color 0.3s ease;
-    /* Эффект плавного изменения цвета фона */
 }
 
 .transparent-button:hover {
-    /* Стили при наведении на кнопку */
     background-color: #c0c0c0;
-    /* Серый цвет фона */
     color: #fff;
-    /* Белый цвет текста */
-}
-
-.second-content-wrapper {
-    /* Стили для второго контейнера контента */
-    display: flex;
-    align-items: center;
-    height: calc(100vh - 640px);
-    /* Например, 150px для учета высоты шапки и карусели */
-}
-
-.second-content-wrapper .image-container {
-    /* Стили для контейнера картинки */
-}
-
-.second-content-wrapper .text-and-button {
-    /* Стили для контейнера текста и кнопки */
-}
-
-.third-content-wrapper {
-    /* Стили для второго контейнера контента */
-    display: flex;
-    align-items: center;
-    height: calc(100vh - 640px);
-    /* Например, 150px для учета высоты шапки и карусели */
-}
-
-.third-content-wrapper .image-container {
-    /* Стили для контейнера картинки */
-}
-
-.third-content-wrapper .text-and-button {
-    /* Стили для контейнера текста и кнопки */
 }

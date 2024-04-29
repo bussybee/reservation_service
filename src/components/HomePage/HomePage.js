@@ -33,7 +33,7 @@ function HomePage() {
         <div className="page-container">
             <div className="App">
 
-                {/* Автономная карусель */}
+
                 <div className="carousel-container">
                     <div className="carousel">
                         <div className="slides" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
@@ -46,7 +46,7 @@ function HomePage() {
                     <button className="next" onClick={nextSlide}>{">"}</button>
                 </div>
 
-                {/* Маленькие фотографии с подписями */}
+
                 <div className="image-grid">
                     <div className="image-container">
                         <img src="https://via.placeholder.com/200x200" alt="Fitness" className="rounded-image" />
@@ -61,13 +61,13 @@ function HomePage() {
                         <p>Салоны красоты</p>
                     </div>
                 </div>
-                {/* Блок обратной связи */}
+                
                 <div className="contact-and-logo">
                     <div className="contact-info">
                         <p>Остались вопросы?<br /></p>
                         <Link
                             to="/feedback"
-                            className={`nav-button ${activeButton === 'button 3' ? 'active' : ''}`}
+                            className={`nav-button-call ${activeButton === 'button 3' ? 'active' : ''}`}
                             onClick={() => handleButtonClick('button 3')}
                         >
                             Свяжитесь с нами!

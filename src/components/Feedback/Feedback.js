@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Feedback.css'; // Подключаем файл стилей для страницы обратной связи
+import './Feedback.css'; 
 
 function Feedback() {
     const [formData, setFormData] = useState({
@@ -18,8 +18,7 @@ function Feedback() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData); // Здесь можно добавить логику для отправки данных на сервер
-        // Очистка формы после отправки
+        console.log(formData); 
         setFormData({
             name: '',
             email: '',

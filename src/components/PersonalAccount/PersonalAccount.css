@@ -1,0 +1,94 @@
+.personal-account {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.profile-info {
+    display: flex;
+    align-items: flex-start;
+}
+
+.profile-picture {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background-color: #ccc;
+}
+
+.profile-picture:hover .upload-button {
+    display: block;
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+}
+
+.upload-button {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    border-radius: 10px;
+    transform: translateX(-50%);
+    background-color: #717171;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.user-data {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.profile-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.profile-button:hover {
+    background-color: #0056b3;
+}
+
+.button-logout {
+    margin-top: 10px;
+    min-height: 35px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.button-logout:hover {
+    background-color: #0056b3;
+}
+
+.profile-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+}

@@ -1,25 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navigation from './Navigation.js';
-import HomePage from './components/HomePage/HomePage.js';
-import Centers from './components/Centers/Centers.js';
-import Feedback from './components/Feedback/Feedback.js';
-import PersonalAccount from './components/PersonalAccount/PersonalAccount.js';
-import RegistrationPage from './components/Registration/Registration.js';
-import LoginPage from './components/Login/Login.js';
+import Navigation from './Navigation';
+import HomePage from './components/HomePage/HomePage';
+import Centers from './components/Centers/Centers';
+import Feedback from './components/Feedback/Feedback';
+import PersonalAccount from './components/PersonalAccount/PersonalAccount';
+import RegistrationPage from './components/Registration/Registration';
+import LoginPage from './components/Login/Login';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem('isAuthenticated') === 'true'
+  );
+
+  useEffect(() => {
+    localStorage.setItem('isAuthenticated', isAuthenticated);
+  }, [isAuthenticated]);
+
   return (
     <Router>
       <div className="App">
-        <Navigation />
+        <Navigation isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/centers" element={<Centers />} />
           <Route path="/feedback" element={<Feedback />} />
-          <Route path="/personalaccount" element={<PersonalAccount />} />
-          <Route path="registrationPage" element={<RegistrationPage />} />
-          <Route path="login" element={<LoginPage />} />
+          <Route path="/personalaccount" element={<PersonalAccount setIsAuthenticated={setIsAuthenticated}/>} />
+          <Route path="/registrationPage" element={<RegistrationPage setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated}/>} />
         </Routes>
       </div>
     </Router>
