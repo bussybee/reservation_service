@@ -1,6 +1,6 @@
 import React from 'react';
 import './Fitness.css';
-
+import { useNavigate } from 'react-router-dom';
 function Fitness() {
     const fitnessCenters = [
         {
@@ -19,6 +19,12 @@ function Fitness() {
         },
     ];
 
+    const navigate = useNavigate();
+
+    const handleCenterButtonClick = () => {
+        navigate("/fitnessPage");
+    };
+
     return (
         <div className="fitness-centers-page">
             <h1 className="page-title">Фитнес центры Воронежа</h1>
@@ -35,7 +41,7 @@ function Fitness() {
                             <p className="center-rating">Рейтинг: {center.rating}</p>
                         </div>
                         <div className="center-button">
-                            <button className="transparent-button-fit">Подробнее</button>
+                            <button className="transparent-button-fit" onClick={handleCenterButtonClick}>Подробнее</button>
                         </div>
                     </div>
                 ))}

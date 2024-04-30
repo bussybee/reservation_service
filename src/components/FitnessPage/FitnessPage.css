@@ -1,0 +1,211 @@
+/* FitnessPage.css */
+
+/* Общие стили */
+.fitness-page {
+    padding: 20px;
+}
+
+/* Детали центра */
+.center-details {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.details {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.center-name {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.address, .rating {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.description {
+    margin-bottom: 20px;
+}
+
+.add-to-favorites {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-to-favorites:hover {
+    background-color: #0056b3;
+}
+
+.center-image-container {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.center-image {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* Расписание */
+.schedule-section {
+    margin-top: 30px;
+}
+
+.schedule-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.schedule-scroll {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.schedule-item {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.schedule-item:hover {
+    background-color: #f0f0f0;
+}
+
+.date, .day {
+    font-size: 16px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+/* Модальное окно */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.time-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.time-button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.time-button.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.time-button.selected:hover {
+    background-color: #0056b3;
+}
+
+/* Комментарии */
+.comment-section {
+    margin-top: 30px;
+}
+
+.comment-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.user-comments {
+    margin-top: 20px;
+}
+
+.comment {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.user {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.rating {
+    margin-bottom: 5px;
+}
+
+.text {
+    margin-bottom: 0;
+}
+
+.user-input {
+    margin-top: 30px;
+}
+
+.input-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.rating-input {
+    margin-bottom: 20px;
+}
+
+.star {
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.star.selected {
+    color: #ffc107;
+}
+
+.comment-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+.submit-comment {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-comment:hover {
+    background-color: #0056b3;
+}

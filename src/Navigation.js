@@ -35,7 +35,7 @@ function Navigation({ isAuthenticated, setIsAuthenticated }) {
                             to="/centers"
                             className={`nav-button ${activeButton === 'button 2' ? 'active' : ''}`}
                             onClick={() => handleButtonClick('button 2')}
-                        >
+                        >   
                             Центры
                         </Link>
                     </li>

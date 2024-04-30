@@ -10,6 +10,7 @@ import LoginPage from './components/Login/Login';
 import Fitness from './components/Fitness/Fitness';
 import SpaCenters from './components/SpaCenters/SpaCenters';
 import BeautySalons from './components/BeautySalons/BeautySalons';
+import FitnessPage from './components/FitnessPage/FitnessPage';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -34,6 +35,9 @@ function App() {
           <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated}/>} />
           <Route path="/spaCenters" element={<SpaCenters />} />
           <Route path="/beautySalons" element={<BeautySalons />} />
+          <Route path="/fitnessPage" element={<FitnessPage />} />
+        
+
         </Routes>
       </div>
     </Router>

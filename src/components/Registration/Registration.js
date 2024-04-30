@@ -37,8 +37,8 @@ function RegistrationPage({ setIsAuthenticated }) {
     ) {
       localStorage.setItem('isAuthenticated', true);
       setIsAuthenticated(true);
-      ym(97134881,'reachGoal','personalaccount')
       navigate("/personalaccount");
+    //   ym(97134881,'reachGoal','personalaccount')
     }   
   
     console.log(formData);
