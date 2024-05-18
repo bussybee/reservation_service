@@ -20,7 +20,8 @@ public interface UserMapper {
     default String normalizePhoneNumber(String phoneNumber) {
         return phoneNumber.replaceAll("^(\\+?[78])", "");
     }
-    default String encodePassword(String password){
+
+    default String encodePassword(String password) {
         return Base64.getEncoder().encodeToString(password.getBytes());
     }
 }
