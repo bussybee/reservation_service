@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import ru.vsu.cs.maslova_e_i.util.InstitutionType;
 
-import java.util.Set;
-
 @Entity
 @Data
 @Table(name = "institutions")
@@ -23,5 +21,4 @@ public class Institution {
     byte[] image;
     @Enumerated(EnumType.STRING)
     InstitutionType type;
-    Set<Comment> comments;
 }

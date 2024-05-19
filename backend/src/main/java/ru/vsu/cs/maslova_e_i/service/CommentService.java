@@ -22,15 +22,21 @@ public class CommentService {
     CommentMapper commentMapper;
 
     public CommentDTO getCommentById(Long commentId) {
-        return commentMapper.toDto(commentRepository.findById(commentId).orElseThrow(() -> new ObjectNotFoundException("Comment", commentId)));
+        return commentMapper.toDto(commentRepository
+                .findById(commentId)
+                .orElseThrow(() -> new ObjectNotFoundException("Comment", commentId)));
     }
 
     public List<CommentDTO> getCommentsByInstitutionId(Long institutionId) {
-        return commentRepository.findAllByInstitutionId(institutionId).stream().map(commentMapper::toDto).collect(Collectors.toList());
+        return commentRepository.findAllByInstitutionId(institutionId).stream()
+                .map(commentMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     public List<CommentDTO> getCommentsByInstitutionType(InstitutionType type) {
-        return commentRepository.findAllByInstitutionType(type).stream().map(commentMapper::toDto).collect(Collectors.toList());
+        return commentRepository.findAllByInstitutionType(type).stream()
+                .map(commentMapper::toDto)
+                .collect(Collectors.toList());
     }
 
 }

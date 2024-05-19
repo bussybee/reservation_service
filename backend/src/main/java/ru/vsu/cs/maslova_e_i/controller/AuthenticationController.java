@@ -24,7 +24,8 @@ public class AuthenticationController {
     }
 
     @GetMapping("/authenticate")
-    public ResponseEntity<UserDTO> authorize(@RequestParam("emailOrPhone") String emailOrPhone, @RequestParam("password") String password) throws AuthenticationException {
+    public ResponseEntity<UserDTO> authorize(@RequestParam("emailOrPhone") String emailOrPhone,
+                                             @RequestParam("password") String password) throws AuthenticationException {
         return new ResponseEntity<>(service.checkUser(emailOrPhone, password), HttpStatus.ACCEPTED);
     }
 }

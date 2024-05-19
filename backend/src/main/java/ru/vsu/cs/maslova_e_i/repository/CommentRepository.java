@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    List<Comment> findAllByAuthorId(Long authorId);
+    List<Comment> findAllByAuthorUserId(Long authorId);
 
     @Query("SELECT c FROM Comment c JOIN c.institution WHERE c.institution.type = :type")
     List<Comment> findAllByInstitutionType(@Param("type") InstitutionType type);

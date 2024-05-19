@@ -22,7 +22,10 @@ public class UserService {
     UserMapper userMapper;
 
     public UserDTO createUser(UserDTO user) {
-        return userMapper.toDto(userRepository.save(userMapper.toUser(user)));
+        User userEntity = userMapper.toUser(user);
+        userEntity.setPhoneNumber(normalizePhoneNumber(user.getPhoneNumber()));
+        userEntity.setPassword(encodePassword(userEntity.getPassword()));
+        return userMapper.toDto(userRepository.save(userEntity));
     }
 
     public User getUserById(Long userId) {
@@ -47,4 +50,11 @@ public class UserService {
         return new String(Base64.getDecoder().decode(password));
     }
 
+    private String normalizePhoneNumber(String phoneNumber) {
+        return phoneNumber.replaceAll("^(\\+?[78])", "");
+    }
+
+    private String encodePassword(String password) {
+        return Base64.getEncoder().encodeToString(password.getBytes());
+    }
 }
