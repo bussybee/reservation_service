@@ -3,8 +3,6 @@ package ru.vsu.cs.maslova_e_i.dto;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
-import ru.vsu.cs.maslova_e_i.model.Institution;
-import ru.vsu.cs.maslova_e_i.model.User;
 
 import java.time.LocalDateTime;
 
@@ -13,11 +11,11 @@ import java.time.LocalDateTime;
 public class CommentDTO {
     Long id;
 
-    User author;
+    Long authorId;
 
     String comment;
 
-    private Institution institution;
+    Long institutionId;
 
     LocalDateTime createdOn;
 
