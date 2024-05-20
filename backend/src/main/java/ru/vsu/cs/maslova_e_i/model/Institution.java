@@ -17,7 +17,6 @@ public class Institution {
     String name;
     String address;
     Double rating;
-    @Lob
     byte[] image;
     @Enumerated(EnumType.STRING)
     InstitutionType type;

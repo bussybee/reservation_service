@@ -26,7 +26,7 @@ public class Comment {
     String comment;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "institution_id")
     private Institution institution;
 
     @Timestamp
