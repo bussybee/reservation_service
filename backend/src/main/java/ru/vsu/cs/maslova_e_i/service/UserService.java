@@ -34,7 +34,7 @@ public class UserService {
     }
 
     public User getUserByEmailOrPhone(String emailOrPassword) {
-        return userRepository.findByEmailOrPhoneNumber(emailOrPassword, emailOrPassword)
+        return userRepository.findByEmailOrPhoneNumber(emailOrPassword, normalizePhoneNumber(emailOrPassword))
                 .orElseThrow(() -> new ObjectNotFoundException("User", (Object) emailOrPassword));
     }
 

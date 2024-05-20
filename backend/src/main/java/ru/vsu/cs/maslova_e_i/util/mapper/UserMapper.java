@@ -9,6 +9,7 @@ import ru.vsu.cs.maslova_e_i.model.User;
 public interface UserMapper {
 
     @Mapping(target = "role", constant = "USER")
+    @Mapping(target = "role", source = "role")
     User toUser(UserDTO userDTO);
 
     @Mapping(target = "password", ignore = true)

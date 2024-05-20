@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import ru.vsu.cs.maslova_e_i.util.Gender;
+import ru.vsu.cs.maslova_e_i.util.Role;
 
 @Data
 public class UserDTO {
@@ -20,4 +21,5 @@ public class UserDTO {
     private Gender gender;
     @Size(min = 11, max = 12)
     private String phoneNumber;
+    private Role role;
 }
