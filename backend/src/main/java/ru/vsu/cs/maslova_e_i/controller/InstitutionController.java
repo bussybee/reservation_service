@@ -4,13 +4,16 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.vsu.cs.maslova_e_i.dto.CommentDTO;
 import ru.vsu.cs.maslova_e_i.dto.InstitutionDTO;
 import ru.vsu.cs.maslova_e_i.service.InstitutionService;
 import ru.vsu.cs.maslova_e_i.util.InstitutionType;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -47,5 +50,18 @@ public class InstitutionController {
     @PostMapping("/institution/{id}/comment")
     public ResponseEntity<CommentDTO> addComment(@RequestBody CommentDTO newComment, @PathVariable Long id) {
         return new ResponseEntity<>(service.addComment(newComment, id), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "institution/{id}/image", consumes = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity<String> updateUserImage(@PathVariable Long id,
+                                                  @RequestPart MultipartFile image) throws IOException {
+
+        service.updateInstitutionImage(id, image);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "institution/image/{id}", produces = {MediaType.IMAGE_PNG_VALUE})
+    public byte[] getImage(@PathVariable Long id) {
+        return service.getInstitutionImage(id);
     }
 }

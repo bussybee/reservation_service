@@ -1,5 +1,6 @@
 package ru.vsu.cs.maslova_e_i.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import ru.vsu.cs.maslova_e_i.dto.CommentDTO;
 import ru.vsu.cs.maslova_e_i.dto.InstitutionDTO;
 import ru.vsu.cs.maslova_e_i.model.Comment;
@@ -17,6 +18,7 @@ import ru.vsu.cs.maslova_e_i.util.InstitutionType;
 import ru.vsu.cs.maslova_e_i.util.mapper.CommentMapper;
 import ru.vsu.cs.maslova_e_i.util.mapper.InstitutionMapper;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,5 +59,17 @@ public class InstitutionService {
         entity.setInstitution(institution);
         entity.setAuthor(author);
         return commentMapper.toDto(commentRepository.save(entity));
+    }
+
+    public void updateInstitutionImage(Long id, MultipartFile image) throws IOException {
+        Institution institution = institutionRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Institution", id));
+        institution.setImage(image.getBytes());
+        institutionRepository.save(institution);
+    }
+
+    public byte[] getInstitutionImage(Long id) {
+        return institutionRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Institution", id)).getImage();
     }
 }

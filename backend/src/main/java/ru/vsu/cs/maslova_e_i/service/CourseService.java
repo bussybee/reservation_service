@@ -6,7 +6,10 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.vsu.cs.maslova_e_i.dto.CourseDTO;
+import ru.vsu.cs.maslova_e_i.model.Course;
+import ru.vsu.cs.maslova_e_i.model.Institution;
 import ru.vsu.cs.maslova_e_i.repository.CourseRepository;
+import ru.vsu.cs.maslova_e_i.repository.InstitutionRepository;
 import ru.vsu.cs.maslova_e_i.util.mapper.CourseMapper;
 
 import java.util.List;
@@ -18,10 +21,16 @@ import java.util.stream.Collectors;
 public class CourseService {
 
     CourseRepository repository;
+    InstitutionRepository institutionRepository;
     CourseMapper mapper;
 
     public CourseDTO createCourse(CourseDTO courseDTO) {
-        return mapper.toDto(repository.save(mapper.toEntity(courseDTO)));
+        Institution institution = institutionRepository
+                .findById(courseDTO.getInstitutionId())
+                .orElseThrow(() -> new ObjectNotFoundException("Institution", courseDTO.getInstitutionId()));
+        Course entity = mapper.toEntity(courseDTO);
+        entity.setInstitution(institution);
+        return mapper.toDto(repository.save(entity));
     }
 
     public CourseDTO getCourseById(Long courseId) {
