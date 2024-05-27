@@ -52,8 +52,8 @@ public class InstitutionController {
         return new ResponseEntity<>(service.addComment(newComment, id), HttpStatus.OK);
     }
 
-    @PatchMapping(value = "institution/{id}/image", consumes = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<String> updateUserImage(@PathVariable Long id,
+    @PatchMapping(value = "institution/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> updateInstitutionImage(@PathVariable Long id,
                                                   @RequestPart MultipartFile image) throws IOException {
 
         service.updateInstitutionImage(id, image);
