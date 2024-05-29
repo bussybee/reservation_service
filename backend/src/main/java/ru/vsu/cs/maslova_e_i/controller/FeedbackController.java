@@ -21,6 +21,7 @@ import java.util.List;
 @RequestMapping("feedback")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class FeedbackController {
 
     FeedbackService feedbackService;

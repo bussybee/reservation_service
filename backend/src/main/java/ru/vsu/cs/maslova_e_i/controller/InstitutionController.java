@@ -20,6 +20,7 @@ import java.util.List;
 @RestController
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class InstitutionController {
     InstitutionService service;
 
