@@ -1,30 +1,29 @@
 import React from 'react';
 import './BeautySalons.css';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function BeautySalons() {
-    const beautySalons = [
-        {
-            id: 1,
-            name: 'Beauty Salons 1',
-            address: 'Address 1',
-            rating: 4.5,
-            image: 'https://via.placeholder.com/400x300'
-        },
-        {
-            id: 2,
-            name: 'Beauty Salons 2',
-            address: 'Address 2',
-            rating: 4.8,
-            image: 'https://via.placeholder.com/400x300'
-        },
-    ];
+
+    const [data, setData] = useState([])
+
+      useEffect(() => {
+        axios
+          .get("http://localhost:8081/beautySalons")
+          .then((res) => {
+            console.log(res);
+            setData(res.data)
+          })
+      });
+        const navigate = useNavigate();
 
     return (
         <div className="beauty-salon-page">
             <h1 className="page-title">Салоны красоты Воронежа</h1>
 
             <div className="beauty-salon-container">
-                {beautySalons.map(center => (
+                {data.map(center => (
                     <div key={center.id} className="beauty-salon-card">
                         <div className="center-image-container">
                             <img src={center.image} alt={center.name} className="center-image" />

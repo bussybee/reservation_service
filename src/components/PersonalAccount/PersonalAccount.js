@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import './PersonalAccount.css';
 import { useNavigate } from "react-router-dom";
+import {useLocation} from 'react-router-dom';
 
 function PersonalAccount({ setIsAuthenticated }) {
-    const [profilePicture, setProfilePicture] = useState(null);
+    const [profilePicture, setProfilePicture] = useState();
     const navigate = useNavigate();
+    const { state } = useLocation();
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -49,12 +51,12 @@ function PersonalAccount({ setIsAuthenticated }) {
                </div>
                 <div className="user-data">
                     <h2>Данные пользователя</h2>
-                    <p><strong>Фамилия:</strong> Денисов</p>
-                    <p><strong>Имя:</strong> Константин</p>
-                    <p><strong>Почта:</strong> roma81186@gmail.com</p>
-                    <p><strong>Телефон:</strong> +7-980-783-85-57</p>
-                    <p><strong>Пол:</strong> Мужской</p>
-                    <p><strong>Возраст:</strong> 20 лет</p>
+                    <p><strong>Фамилия:</strong> {state.lastName}</p>
+                    <p><strong>Имя:</strong> {state.firstName}</p>
+                    <p><strong>Почта:</strong> {state.email}</p>
+                    <p><strong>Телефон:</strong> {state.phoneNumber}</p>
+                    <p><strong>Пол:</strong> {state.gender}</p>
+                    <p><strong>Возраст:</strong> {state.age} лет</p>
                 </div>
             </div>
             <div className="profile-buttons">

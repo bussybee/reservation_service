@@ -1,27 +1,24 @@
 import React from 'react';
 import './Fitness.css';
 import { useNavigate } from 'react-router-dom';
-function Fitness() {
-    const fitnessCenters = [
-        {
-            id: 1,
-            name: 'Fitness Center 1',
-            address: 'Address 1',
-            rating: 4.5,
-            image: 'https://via.placeholder.com/400x300'
-        },
-        {
-            id: 2,
-            name: 'Fitness Center 2',
-            address: 'Address 2',
-            rating: 4.8,
-            image: 'https://via.placeholder.com/400x300'
-        },
-    ];
+import { useEffect, useState } from "react";
+import axios from "axios";
 
+function Fitness() {
+
+const [data, setData] = useState([])
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081/fitness")
+      .then((res) => {
+        setData(res.data)
+      })
+  });
     const navigate = useNavigate();
 
-    const handleCenterButtonClick = () => {
+    const handleCenterButtonClick = (id) => {
+        console.log("pressed ");
         navigate("/fitnessPage");
     };
 
@@ -30,7 +27,7 @@ function Fitness() {
             <h1 className="page-title">Фитнес центры Воронежа</h1>
 
             <div className="fitness-centers-container">
-                {fitnessCenters.map(center => (
+                {data.map(center => (
                     <div key={center.id} className="fitness-center-card">
                         <div className="center-image-container">
                             <img src={center.image} alt={center.name} className="center-image" />

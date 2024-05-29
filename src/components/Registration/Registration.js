@@ -3,6 +3,7 @@ import './Registration.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 function RegistrationPage({ setIsAuthenticated }) {
   const [formData, setFormData] = useState({
@@ -23,8 +24,16 @@ function RegistrationPage({ setIsAuthenticated }) {
       [name]: value,
     }));
   };
+  function generateGender(gender){
+          if(gender === "MALE"){
+              return "Мужской"
+          } else {
+              return "Женский";
+          }
+      };
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       formData.lastName &&
@@ -37,8 +46,40 @@ function RegistrationPage({ setIsAuthenticated }) {
     ) {
       localStorage.setItem('isAuthenticated', true);
       setIsAuthenticated(true);
-      navigate("/personalaccount");
+//      navigate("/personalaccount");
     //   ym(97134881,'reachGoal','personalaccount')
+    await axios({
+              url: "http://localhost:8081/user/create",
+              method: "POST",
+              data: {
+                lastName: formData.lastName,
+                 firstName: formData.firstName,
+                 age: formData.age,
+                 gender: formData.gender,
+                 phoneNumber: formData.phoneNumber ,
+                 email: formData.email,
+                 password: formData.password
+              },
+            }).then(res => {
+                  if(res.status === 201){
+                  console.log(res);
+                        setIsAuthenticated(true);
+                        navigate("/personalaccount", { state:
+                                                          {   firstName: res.data.firstName,
+                                                              lastName: res.data.lastName,
+                                                              email: res.data.email,
+                                                              phoneNumber: res.data.phoneNumber.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "+7-$1-$2-$3-$4"),
+                                                              gender: generateGender(res.data.gender),
+                                                              age: res.data.age
+                                                          }
+                                                     });
+                  } else {
+                      // todo: print error message authentication failed
+                  }
+
+                  })
+                    .catch((err) => console.log(err));
+
     }   
   
     console.log(formData);
@@ -113,8 +154,8 @@ function RegistrationPage({ setIsAuthenticated }) {
             required
           >
             <option value="">Выберите пол</option>
-            <option value="male">Мужской</option>
-            <option value="female">Женский</option>
+            <option value="MALE">Мужской</option>
+            <option value="FEMALE">Женский</option>
           </select>
         </div>
 

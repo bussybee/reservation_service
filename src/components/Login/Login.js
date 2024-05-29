@@ -3,6 +3,7 @@ import './Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function LoginPage({setIsAuthenticated}) {
 
@@ -29,17 +30,47 @@ function LoginPage({setIsAuthenticated}) {
         }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData); 
-        setFormData({
-            emailOrPhone: '',
-            password: '',
-            showPassword: false 
-        });
+    function generateGender(gender){
+        if(gender === "MALE"){
+            return "Мужской"
+        } else {
+            return "Женский";
+        }
+    };
 
-        setIsAuthenticated(true);
-        navigate("/personalaccount");
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormData({
+                emailOrPhone: '',
+                password: '',
+                showPassword: false
+            });
+    await axios({
+      url: "http://localhost:8081/user/authenticate",
+      method: "POST",
+      data: {
+        emailOrPhone: formData.emailOrPhone,
+        password: formData.password
+      },
+    }).then(res => {
+    if(res.status === 202){
+    console.log(res);
+          setIsAuthenticated(true);
+          navigate("/personalaccount", { state:
+                                            {   firstName: res.data.firstName,
+                                                lastName: res.data.lastName,
+                                                email: res.data.email,
+                                                phoneNumber: res.data.phoneNumber.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "+7-$1-$2-$3-$4"),
+                                                gender: generateGender(res.data.gender),
+                                                age: res.data.age
+                                            }
+                                       });
+    } else {
+        // todo: print error message authentication failed
+    }
+
+    })
+      .catch((err) => console.log(err));
     };
 
     return (

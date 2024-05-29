@@ -1,30 +1,30 @@
 import React from 'react';
 import './SpaCenters.css';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function SpaCenters() {
-    const spaCenters = [
-        {
-            id: 1,
-            name: 'Spa Center 1',
-            address: 'Address 1',
-            rating: 4.5,
-            image: 'https://via.placeholder.com/400x300'
-        },
-        {
-            id: 2,
-            name: 'Spa Center 2',
-            address: 'Address 2',
-            rating: 4.8,
-            image: 'https://via.placeholder.com/400x300'
-        },
-    ];
+
+
+    const [data, setData] = useState([])
+
+      useEffect(() => {
+        axios
+          .get("http://localhost:8081/spaCenters")
+          .then((res) => {
+            console.log(res);
+            setData(res.data)
+          })
+      });
+        const navigate = useNavigate();
 
     return (
         <div className="spa-centers-page">
             <h1 className="page-title">Спа центры Воронежа</h1>
 
             <div className="spa-centers-container">
-                {spaCenters.map(center => (
+                {data.map(center => (
                     <div key={center.id} className="spa-center-card">
                         <div className="center-image-container">
                             <img src={center.image} alt={center.name} className="center-image" />
