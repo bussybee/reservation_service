@@ -22,4 +22,5 @@ public class UserDTO {
     @Size(min = 11, max = 12)
     private String phoneNumber;
     private Role role;
+    private byte[] image;
 }

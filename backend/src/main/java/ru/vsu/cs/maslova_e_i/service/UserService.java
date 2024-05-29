@@ -6,11 +6,14 @@ import lombok.experimental.FieldDefaults;
 import org.apache.tomcat.websocket.AuthenticationException;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.vsu.cs.maslova_e_i.dto.UserDTO;
+import ru.vsu.cs.maslova_e_i.model.AuthenticationRequest;
 import ru.vsu.cs.maslova_e_i.model.User;
 import ru.vsu.cs.maslova_e_i.repository.UserRepository;
 import ru.vsu.cs.maslova_e_i.util.mapper.UserMapper;
 
+import java.io.IOException;
 import java.util.Base64;
 
 @Service
@@ -33,17 +36,29 @@ public class UserService {
                 .orElseThrow(() -> new ObjectNotFoundException("User", userId));
     }
 
-    public User getUserByEmailOrPhone(String emailOrPassword) {
-        return userRepository.findByEmailOrPhoneNumber(emailOrPassword, normalizePhoneNumber(emailOrPassword))
-                .orElseThrow(() -> new ObjectNotFoundException("User", (Object) emailOrPassword));
+    public User getUserByEmailOrPhone(String emailOrPhoneNumber) {
+        return userRepository.findByEmailOrPhoneNumber(emailOrPhoneNumber, normalizePhoneNumber(emailOrPhoneNumber))
+                .orElseThrow(() -> new ObjectNotFoundException("User", (Object) emailOrPhoneNumber));
     }
 
-    public UserDTO checkUser(String emailOrPassword, String password) throws AuthenticationException {
-        User userByEmailOrPhone = getUserByEmailOrPhone(emailOrPassword);
-        if (password.equals(decodePassword(userByEmailOrPhone.getPassword()))) {
+    public UserDTO checkUser(AuthenticationRequest request) throws AuthenticationException {
+        User userByEmailOrPhone = getUserByEmailOrPhone(request.getEmailOrPhone());
+        if (request.getPassword().equals(decodePassword(userByEmailOrPhone.getPassword()))) {
             return userMapper.toDto(userByEmailOrPhone);
         }
         throw new AuthenticationException("Login not allowed");
+    }
+
+    public void updateUserImage(Long id, MultipartFile image) throws IOException {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("User", id));
+        user.setImage(image.getBytes());
+        userRepository.save(user);
+    }
+
+    public byte[] getUserImage(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("User", id)).getImage();
     }
 
     private String decodePassword(String password) {
