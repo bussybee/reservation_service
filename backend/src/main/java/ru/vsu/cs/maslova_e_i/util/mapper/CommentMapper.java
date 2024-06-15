@@ -10,9 +10,9 @@ public interface CommentMapper {
 
     @Mapping(target = "author", ignore = true)
     @Mapping(target = "institution", ignore = true)
-    Comment toEntity(CommentDTO userDTO);
+    Comment toEntity(CommentDTO commentDTO);
 
     @Mapping(target = "authorId", source = "author.userId")
     @Mapping(target = "institutionId", source = "institution.id")
-    CommentDTO toDto(Comment user);
+    CommentDTO toDto(Comment comment);
 }
