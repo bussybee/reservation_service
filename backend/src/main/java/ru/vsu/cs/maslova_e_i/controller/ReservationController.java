@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.vsu.cs.maslova_e_i.dto.CreateReservationRequest;
 import ru.vsu.cs.maslova_e_i.dto.ReservationDTO;
 import ru.vsu.cs.maslova_e_i.service.ReservationService;
 
@@ -26,8 +27,8 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservationDTO> create(@RequestParam(value = "userId") Long userId, @RequestParam("courseId") Long courseId) {
-        return new ResponseEntity<>(reservationService.createReservation(userId, courseId), HttpStatus.CREATED);
+    public ResponseEntity<ReservationDTO> create(@RequestBody CreateReservationRequest createReservationRequest) {
+        return new ResponseEntity<>(reservationService.createReservation(createReservationRequest), HttpStatus.CREATED);
     }
 
     @GetMapping

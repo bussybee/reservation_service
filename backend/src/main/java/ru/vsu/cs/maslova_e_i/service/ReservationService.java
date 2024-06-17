@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.vsu.cs.maslova_e_i.dto.CreateReservationRequest;
 import ru.vsu.cs.maslova_e_i.dto.ReservationDTO;
 import ru.vsu.cs.maslova_e_i.model.Course;
 import ru.vsu.cs.maslova_e_i.model.Reservation;
@@ -27,9 +28,11 @@ public class ReservationService {
     CourseRepository courseRepository;
     UserRepository userRepository;
 
-    public ReservationDTO createReservation(Long userId, Long courseId) {
-        Course course = courseRepository.findById(courseId).orElseThrow(() -> new ObjectNotFoundException("Course", courseId));
-        User user = userRepository.findById(userId).orElseThrow(() -> new ObjectNotFoundException("User", userId));
+    public ReservationDTO createReservation(CreateReservationRequest createReservationRequest) {
+        Course course = courseRepository.findById(createReservationRequest.getCourseId())
+                .orElseThrow(() -> new ObjectNotFoundException("Course", createReservationRequest.getCourseId()));
+        User user = userRepository.findById(createReservationRequest.getUserId())
+                .orElseThrow(() -> new ObjectNotFoundException("User", createReservationRequest.getUserId()));
         Reservation reservation = new Reservation();
         reservation.setCreatedAt(LocalDateTime.now());
         reservation.setUser(user);
