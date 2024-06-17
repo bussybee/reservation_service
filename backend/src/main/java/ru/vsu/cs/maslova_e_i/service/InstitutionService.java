@@ -19,6 +19,7 @@ import ru.vsu.cs.maslova_e_i.util.mapper.CommentMapper;
 import ru.vsu.cs.maslova_e_i.util.mapper.InstitutionMapper;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +59,9 @@ public class InstitutionService {
         Comment entity = commentMapper.toEntity(newComment);
         entity.setInstitution(institution);
         entity.setAuthor(author);
-        return commentMapper.toDto(commentRepository.save(entity));
+        CommentDTO commentDTO = commentMapper.toDto(commentRepository.save(entity));
+        updateRating(institutionId);
+        return commentDTO;
     }
 
     public void updateInstitutionImage(Long id, MultipartFile image) throws IOException {
@@ -71,5 +74,37 @@ public class InstitutionService {
     public byte[] getInstitutionImage(Long id) {
         return institutionRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Institution", id)).getImage();
+    }
+
+    public InstitutionDTO updateInstitution(Long id, InstitutionDTO institutionDTO) {
+        Institution institution = institutionRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Institution", id));
+        institution.setName(institutionDTO.getName());
+        institution.setAddress(institutionDTO.getAddress());
+        Institution updated = institutionRepository.save(institution);
+        return institutionMapper.toDto(updated);
+    }
+
+    private void updateRating(Long id) {
+        List<Comment> allCommentsForInstitution = commentRepository.findAllByInstitutionId(id);
+        double rating = allCommentsForInstitution.stream().mapToDouble(Comment::getRating).sum();
+        Institution institution = institutionRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Institution", id));
+        institution.setRating(rating);
+        institutionRepository.save(institution);
+    }
+
+    public void addToFavoritesByUser(Long userId, Long institutionId){
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ObjectNotFoundException("User", userId));
+        Institution institution = institutionRepository.findById(institutionId)
+                .orElseThrow(() -> new ObjectNotFoundException("Institution", institutionId));
+        if (user.getFavorites() != null) {
+            user.getFavorites().add(institution);
+        } else {
+            user.setFavorites(new HashSet<>());
+            user.getFavorites().add(institution);
+        }
+        userRepository.save(user);
     }
 }

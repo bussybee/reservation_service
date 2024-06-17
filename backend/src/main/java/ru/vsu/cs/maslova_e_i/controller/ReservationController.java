@@ -38,6 +38,12 @@ public class ReservationController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        reservationService.deleteReservation(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/{id}/approve")
+    public ResponseEntity<ReservationDTO> approveReservation(@PathVariable Long id){
+        return new ResponseEntity<>(reservationService.approveReservationRequest(id), HttpStatus.OK);
     }
 }

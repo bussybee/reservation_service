@@ -63,7 +63,7 @@ public class InstitutionController {
     @PatchMapping(value = "institution/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Обновить изображение учреждения")
     public ResponseEntity<String> updateInstitutionImage(@PathVariable Long id,
-                                                  @RequestPart MultipartFile image) throws IOException {
+                                                         @RequestPart MultipartFile image) throws IOException {
 
         service.updateInstitutionImage(id, image);
         return ResponseEntity.ok().build();
@@ -73,5 +73,16 @@ public class InstitutionController {
     @Operation(summary = "Получить изображение учреждения по id")
     public byte[] getImage(@PathVariable Long id) {
         return service.getInstitutionImage(id);
+    }
+
+    @PutMapping("institution/{id}")
+    public ResponseEntity<InstitutionDTO> updateInstitution(@PathVariable Long id, @RequestBody InstitutionDTO institutionDTO) {
+        return new ResponseEntity<>(service.updateInstitution(id, institutionDTO), HttpStatus.OK);
+    }
+
+    @GetMapping("institution/{institutionId}/tofavorites/{userId}")
+    public ResponseEntity<Void> addToFavorites(@PathVariable Long institutionId, @PathVariable Long userId) {
+        service.addToFavoritesByUser(userId, institutionId);
+        return ResponseEntity.ok().build();
     }
 }

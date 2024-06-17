@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.maslova_e_i.dto.CommentDTO;
 import ru.vsu.cs.maslova_e_i.service.CommentService;
 import ru.vsu.cs.maslova_e_i.util.InstitutionType;
@@ -51,5 +48,10 @@ public class CommentController {
     })
     public ResponseEntity<List<CommentDTO>> getAllCommentsForSpaCenter() {
         return new ResponseEntity<>(service.getCommentsByInstitutionType(InstitutionType.SPA_SALON), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CommentDTO> updateComment(@PathVariable Long id, @RequestBody CommentDTO commentDTO){
+        return new ResponseEntity<>(service.updateComment(id, commentDTO), HttpStatus.OK);
     }
 }

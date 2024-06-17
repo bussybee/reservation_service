@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.vsu.cs.maslova_e_i.dto.CommentDTO;
+import ru.vsu.cs.maslova_e_i.model.Comment;
 import ru.vsu.cs.maslova_e_i.repository.CommentRepository;
 import ru.vsu.cs.maslova_e_i.util.InstitutionType;
 import ru.vsu.cs.maslova_e_i.util.mapper.CommentMapper;
@@ -39,4 +40,10 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
+    public CommentDTO updateComment(Long id, CommentDTO commentDTO){
+        Comment commentToUpdate = commentRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Comment", id));
+        commentToUpdate.setComment(commentDTO.getComment());
+        return commentMapper.toDto(commentRepository.save(commentToUpdate));
+    }
 }

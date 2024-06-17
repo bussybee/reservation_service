@@ -26,4 +26,7 @@ public class ReservationDTO {
 
     String phone;
 
+    Boolean approved;
+
+    Boolean competed;
 }

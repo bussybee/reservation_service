@@ -8,6 +8,8 @@ import lombok.Data;
 import ru.vsu.cs.maslova_e_i.util.Gender;
 import ru.vsu.cs.maslova_e_i.util.Role;
 
+import java.util.Set;
+
 @Entity
 @Data
 @Table(name = "users",
@@ -38,4 +40,8 @@ public class User {
     private Gender gender;
     private String phoneNumber;
     byte[] image;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "favorites", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "institution_id"))
+    private Set<Institution> favorites;
 }

@@ -7,6 +7,8 @@ import lombok.Data;
 import ru.vsu.cs.maslova_e_i.util.Gender;
 import ru.vsu.cs.maslova_e_i.util.Role;
 
+import java.util.Set;
+
 @Data
 public class UserDTO {
     private Long userId;
@@ -23,4 +25,5 @@ public class UserDTO {
     private String phoneNumber;
     private Role role;
     private byte[] image;
+    private Set<InstitutionDTO> favorites;
 }

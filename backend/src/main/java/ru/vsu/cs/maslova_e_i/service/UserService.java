@@ -15,6 +15,8 @@ import ru.vsu.cs.maslova_e_i.util.mapper.UserMapper;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -31,9 +33,13 @@ public class UserService {
         return userMapper.toDto(userRepository.save(userEntity));
     }
 
-    public User getUserById(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new ObjectNotFoundException("User", userId));
+    public UserDTO getUserById(Long userId) {
+        return userMapper.toDto(userRepository.findById(userId)
+                .orElseThrow(() -> new ObjectNotFoundException("User", userId)));
+    }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 
     public User getUserByEmailOrPhone(String emailOrPhoneNumber) {
@@ -47,6 +53,12 @@ public class UserService {
             return userMapper.toDto(userByEmailOrPhone);
         }
         throw new AuthenticationException("Login not allowed");
+    }
+
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     public void updateUserImage(Long id, MultipartFile image) throws IOException {

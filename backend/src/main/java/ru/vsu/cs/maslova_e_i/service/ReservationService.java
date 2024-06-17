@@ -56,4 +56,12 @@ public class ReservationService {
         reservationRepository.deleteById(id);
     }
 
+    public ReservationDTO approveReservationRequest(Long id){
+        Reservation reservation = reservationRepository
+                .findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Reservation", id));
+        reservation.setApproved(true);
+        return reservationMapper.toDto(reservationRepository.save(reservation));
+    }
+
 }
