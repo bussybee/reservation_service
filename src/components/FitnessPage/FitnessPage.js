@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './FitnessPage.css';
 
 function FitnessPage() {
@@ -42,6 +43,8 @@ function FitnessPage() {
         ]
     };
 
+    const navigate = useNavigate();
+
     const handleAddToFavorites = () => {
         // Добавление центра в избранное
     };
@@ -53,10 +56,15 @@ function FitnessPage() {
 
     const handleTimeSelection = (time) => {
         setSelectedTime(time);
-        // Здесь можно добавить логику для записи на занятие
-        console.log('Выбранное время:', time);
-        // Закрыть всплывающее окно после выбора времени
         setShowModal(false);
+        navigate('/booking', {
+            state: {
+                selectedService: 'Fitness Session',
+                selectedDate: selectedDate,
+                selectedTime: time,
+                serviceCost: '1000 руб.' // укажите стоимость услуги
+            }
+        });
     };
 
     const handleRatingChange = (value) => {

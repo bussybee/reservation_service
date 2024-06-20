@@ -1,138 +1,138 @@
 .App {
-    text-align: center;
-  }
-  
-  .navigation button.active {
-    border-bottom: 2px solid white;
-  }
-  
-  .carousel-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-  }
-  
-  .carousel {
-    width: 100%; 
-    overflow: hidden; 
-  }
-  
-  .slides {
-    display: block;
-    width: 100%; 
-    transition: transform 0.5s ease; 
-    white-space: nowrap; 
-  }
-  
-  .slide {
-    display: inline-block;
-    width: 100%; 
-    background-size: cover;
-    background-position: center;
-    height: 300px;
-  }
-  
-  .slide:not(:last-child) {
-    margin-right: 0; 
-  }
-  
-  .prev {
-    position: absolute;
-    top: 50%;
-    left: 0; 
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    outline: none;
-    opacity: 0.5;
-  }
-  
-  .next {
-    position: absolute;
-    top: 50%;
-    right: 0; 
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    outline: none;
-    opacity: 0.5;
-  }
-  
-  .prev:hover,
-  .next:hover {
-    opacity: 1; 
-  }
-  
-  .image-grid {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-    }
-    
-    .image-container {
-    text-align: center;
-    }
-    
-    .rounded-image {
-    border-radius: 50%;
-    }
-    
-    .image-container p {
-    margin-top: 10px;
-    }
-  
-    
-  .page-container {
-    overflow-y: auto; 
-    }
-  
-   
-  .contact-info {
-    width: 50%;
-    padding: 20px;
-    background-color: #ffffff;
-    text-align: center;
-    }
-    
-    .contact-info p {
-    margin: 10px 0;
-    }
+  text-align: center;
+}
 
-    .nav-button-call {
-      color: #000000; 
-      text-decoration: none; 
-      border: none; 
-      background: none; 
-      padding: 0; 
-      cursor: pointer; 
-  
-      
-      transition: color 0.3s ease;
+.navigation button.active {
+  border-bottom: 2px solid white;
+}
+
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel {
+  width: 100%; 
+  overflow: hidden; 
+}
+
+.slides {
+  display: block;
+  width: 100%; 
+  transition: transform 0.5s ease; 
+  white-space: nowrap; 
+}
+
+.slide {
+  display: inline-block;
+  width: 100%; 
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+}
+
+.slide:not(:last-child) {
+  margin-right: 0; 
+}
+
+.prev {
+  position: absolute;
+  top: 50%;
+  left: 0; 
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  outline: none;
+  opacity: 0.5;
+}
+
+.next {
+  position: absolute;
+  top: 50%;
+  right: 0; 
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  outline: none;
+  opacity: 0.5;
+}
+
+.prev:hover,
+.next:hover {
+  opacity: 1; 
+}
+
+.image-grid {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
   }
   
-  .nav-button-call:hover,
-  .nav-button-call:focus {
-      text-decoration: underline; 
-      color: #737373; 
+  .image-container {
+  text-align: center;
   }
   
+  .rounded-image {
+  border-radius: 50%;
+  }
+  
+  .image-container p {
+  margin-top: 10px;
+  }
+
+  
+.page-container {
+  overflow-y: auto; 
+  }
+
+ 
+.contact-info {
+  width: 50%;
+  padding: 20px;
+  
+  text-align: center;
+  }
+  
+  .contact-info p {
+  margin: 10px 0;
+  }
+
+  .nav-button-call {
+    color: #000000; 
+    text-decoration: none; 
+    border: none; 
+    background: none; 
+    padding: 0; 
+    cursor: pointer; 
+
     
-  .contact-and-logo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    }
-    
-    .logo-image {
-    width: 100px; 
-    height: auto;
-    }
+    transition: color 0.3s ease;
+}
+
+.nav-button-call:hover,
+.nav-button-call:focus {
+    text-decoration: underline; 
+    color: #737373; 
+}
+
+  
+.contact-and-logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  }
+  
+  .logo-image {
+  width: 100px; 
+  height: auto;
+  }

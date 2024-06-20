@@ -11,12 +11,18 @@ import Fitness from './components/Fitness/Fitness';
 import SpaCenters from './components/SpaCenters/SpaCenters';
 import BeautySalons from './components/BeautySalons/BeautySalons';
 import FitnessPage from './components/FitnessPage/FitnessPage';
+import SetApp from './components/Booking/SetApp';
+import FavoritesPage from './components/FavoritesPage/FavoritesPage';
+import HistoryPage from './components/HistoryPage/HistoryPage';
+import AdminPanel from './components/AdminPanel/AdminPanel';
+import BookingRequests from './components/AdminPanel/BookingRequests';
+import ClientInfo from './components/AdminPanel/ClientInfo';
+import EditCenters from './components/AdminPanel/EditCenters';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem('isAuthenticated') === 'true'
   );
-
   useEffect(() => {
     localStorage.setItem('isAuthenticated', isAuthenticated);
   }, [isAuthenticated]);
@@ -36,7 +42,13 @@ function App() {
           <Route path="/spaCenters" element={<SpaCenters />} />
           <Route path="/beautySalons" element={<BeautySalons />} />
           <Route path="/fitnessPage" element={<FitnessPage />} />
-        
+          <Route path="/booking" element={<SetApp />} />
+          <Route path="/favoritesPage" element={<FavoritesPage/>} />
+          <Route path="/historyPage" element={<HistoryPage/>} />
+          <Route path="/adminPanel" element={<AdminPanel/>} />
+          <Route path="/bookingRequests" element={<BookingRequests/>} />
+          <Route path="/clientInfo" element={<ClientInfo/>} />
+          <Route path="editCenters" element={<EditCenters/>} />
 
         </Routes>
       </div>

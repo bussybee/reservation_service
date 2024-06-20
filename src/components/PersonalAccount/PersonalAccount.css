@@ -1,12 +1,37 @@
+/* src/components/PersonalAccount/PersonalAccount.css */
+
+.personal-account-container {
+    height: 100vh;
+    width: 100vw;
+    background-image: url('/Users/konstantindenisov/my-app/src/images/fonAll.JPEG'); /* Путь к изображению фона */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #000000; /* Цвет текста для контраста с фоном */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .personal-account {
     display: flex;
     justify-content: space-between;
-    margin: 20px;
+    width: 80%;
+    max-width: 1200px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
 .profile-info {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
+    padding: 20px;
+    flex: 1;
 }
 
 .profile-picture {
@@ -14,10 +39,10 @@
     width: 200px;
     height: 200px;
     background-color: #ccc;
-}
-
-.profile-picture:hover .upload-button {
-    display: block;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 2px solid #007bff;
 }
 
 .profile-picture img {
@@ -39,36 +64,59 @@
     position: absolute;
     bottom: 10px;
     left: 50%;
-    border-radius: 10px;
     transform: translateX(-50%);
-    background-color: #717171;
+    background-color: #007bff;
     color: #fff;
     padding: 5px 10px;
     cursor: pointer;
+    border-radius: 10px;
+}
+
+.profile-picture:hover .upload-button {
+    display: block;
 }
 
 .user-data {
-    flex: 1;
     margin-left: 20px;
+}
+
+.user-data h2 {
+    margin-bottom: 10px;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.user-data p {
+    margin: 5px 0;
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .profile-buttons {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+    padding: 20px;
 }
 
 .profile-button {
-    background-color: #007bff;
+    background-color: rgba(0, 123, 255, 0.8); 
     color: #fff;
     border: none;
     padding: 10px 20px;
     font-size: 16px;
     margin-bottom: 10px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .profile-button:hover {
-    background-color: #0056b3;
+    background-color: rgba(0, 86, 179, 0.8);
 }
 
 .button-logout {
@@ -77,10 +125,14 @@
     text-align: center;
     display: flex;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
     background-color: #007bff;
     color: white;
     border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
 }
 
 .button-logout:hover {

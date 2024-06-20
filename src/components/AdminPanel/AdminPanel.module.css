@@ -1,0 +1,347 @@
+.adminPanelContainer {
+  height: 100vh;
+  width: 100vw;
+  background-image: url('/Users/konstantindenisov/my-app/src/images/fonAll.JPEG');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.adminPanel {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 1200px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  flex: 1;
+}
+
+.profileBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profilePicture {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: #ccc;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 2px solid #007bff;
+}
+
+.profilePicture:hover .uploadButton {
+  display: block;
+}
+
+.profilePicture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.uploadButton {
+  display: none;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.placeholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+}
+
+.userData {
+  margin-top: 20px;
+}
+
+.userData h2 {
+  margin-bottom: 10px;
+  color: #333;
+  border-bottom: 2px solid #007bff;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.userData p {
+  margin: 5px 0;
+  padding: 10px;
+  background: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.buttonLogout {
+  margin-top: 10px;
+  min-height: 35px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.buttonLogout:hover {
+  background-color: #0056b3;
+}
+
+.adminMenu {
+  width: 200px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-left: 20px;
+}
+
+.adminMenu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.adminMenu li {
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.adminMenu li:hover {
+  background-color: #f0f0f0;
+}
+
+.adminMenu .active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.adminContent {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styles for BookingRequests */
+/* Styles for BookingRequests */
+.bookingRequests {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.bookingRequests h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.bookingRequests ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bookingRequests li {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.bookingRequests li:hover {
+  background-color: #f0f0f0;
+}
+
+.bookingRequests button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.bookingRequests button:hover {
+  background-color: #0d8bf0;
+}
+
+/* Styles for ClientInfo */
+.clientInfo {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.clientInfo h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.clientInfo ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.clientInfo li {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.clientInfo li:hover {
+  background-color: #f0f0f0;
+}
+
+.clientInfo button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.clientInfo button:hover {
+  background-color: #d32f2f;
+}
+
+/* Styles for EditCenters */
+.editCenters {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: #fff;
+  display: inline-block;
+}
+
+.editCenters h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.categories {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.categories button {
+  padding: 15px;
+  cursor: pointer;
+  background-color: #0d8bf0;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.categories button:hover {
+  background-color: #0056b3;
+}
+
+.centersList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.centersList div {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.centersList img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.centersList h4 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.centersList ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.centersList li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.centersList li:last-child {
+  border-bottom: none;
+}
+
+.centersList button {
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.centersList button:hover {
+  background-color: #d32f2f;
+}
+
+.createCenter {
+  margin-top: 20px;
+}
+
+.createCenter h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}

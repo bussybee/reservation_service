@@ -25,44 +25,53 @@ function PersonalAccount({ setIsAuthenticated }) {
         navigate("/registrationPage");
     };
 
+    const handleFavoritesButtonClick = () => {
+        navigate("/favoritesPage");
+    };
+
+    const handleHistoryButtonClick = () => {
+        navigate("/historyPage");
+    };
 
     return (
-        <div className="personal-account">
-            <div className="profile-info">
-               <div className="profile-block">
-               <div className="profile-picture">
-                    {profilePicture ? (
-                        <img src={profilePicture} alt="Profile" />
-                    ) : (
-                        <div className="placeholder">Загрузить фото</div>
-                    )}
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileChange}
-                        style={{ display: 'none' }}
-                        id="fileInput"
-                    />
-                    <label htmlFor="fileInput" className="upload-button">Выбрать файл</label>
+        <div className="personal-account-container">
+            <div className="personal-account">
+                <div className="profile-info">
+                    <div className="profile-block">
+                        <div className="profile-picture">
+                            {profilePicture ? (
+                                <img src={profilePicture} alt="Profile" />
+                            ) : (
+                                <div className="placeholder">Загрузить фото</div>
+                            )}
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                                style={{ display: 'none' }}
+                                id="fileInput"
+                            />
+                            <label htmlFor="fileInput" className="upload-button">Выбрать файл</label>
+                        </div>
+                        <button onClick={onClickLogout} className="button-logout">
+                            Выйти
+                        </button>
+                    </div>
+                    <div className="user-data">
+                        <h2>Данные пользователя</h2>
+                        <p><strong>Фамилия:</strong> {state.lastName}</p>
+                        <p><strong>Имя:</strong> {state.firstName}</p>
+                        <p><strong>Почта:</strong> {state.email}</p>
+                        <p><strong>Телефон:</strong> {state.phoneNumber}</p>
+                        <p><strong>Пол:</strong> {state.gender}</p>
+                        <p><strong>Возраст:</strong> {state.age} лет</p>
+                    </div>
                 </div>
-                <button onClick={onClickLogout} className="button-logout">
-                    Выйти
-                </button>
-               </div>
-                <div className="user-data">
-                    <h2>Данные пользователя</h2>
-                    <p><strong>Фамилия:</strong> {state.lastName}</p>
-                    <p><strong>Имя:</strong> {state.firstName}</p>
-                    <p><strong>Почта:</strong> {state.email}</p>
-                    <p><strong>Телефон:</strong> {state.phoneNumber}</p>
-                    <p><strong>Пол:</strong> {state.gender}</p>
-                    <p><strong>Возраст:</strong> {state.age} лет</p>
+                <div className="profile-buttons">
+                    <button className="profile-button">Профиль</button>
+                    <button onClick={handleFavoritesButtonClick} className="profile-button">Избранное</button>
+                    <button onClick ={handleHistoryButtonClick} className="profile-button">История</button>
                 </div>
-            </div>
-            <div className="profile-buttons">
-                <button className="profile-button">Профиль</button>
-                <button className="profile-button">Избранное</button>
-                <button className="profile-button">История</button>
             </div>
         </div>
     );
