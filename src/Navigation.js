@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Navigation.css';
 import { Link } from 'react-router-dom';
-import logoImage from './components/HomePage/imrbYjjHAjk.ico'; // Путь к изображению логотипа
+import logoImage from './imrbYjjHAjk.ico'; // Путь к изображению логотипа
 
 function Navigation({ isAuthenticated, setIsAuthenticated }) {
     const [activeButton, setActiveButton] = useState('');
