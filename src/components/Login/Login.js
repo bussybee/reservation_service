@@ -46,7 +46,7 @@ function LoginPage({setIsAuthenticated}) {
                 showPassword: false
             });
     await axios({
-      url: "http://localhost:8081/user/authenticate",
+      url: "https://bbaj3hbmo0dg8o6gkctp.containers.yandexcloud.net/user/authenticate",
       method: "POST",
       data: {
         emailOrPhone: formData.emailOrPhone,

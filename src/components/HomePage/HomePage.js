@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
-import logoImage from '/Users/konstantindenisov/my-app/src/imrbYjjHAjk.ico';
+import logoImage from './warrior.ico';
 
 function HomePage() {
 

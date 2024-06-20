@@ -49,7 +49,7 @@ function RegistrationPage({ setIsAuthenticated }) {
 //      navigate("/personalaccount");
     //   ym(97134881,'reachGoal','personalaccount')
     await axios({
-              url: "http://localhost:8081/user/create",
+              url: "https://bbaj3hbmo0dg8o6gkctp.containers.yandexcloud.net/user/create",
               method: "POST",
               data: {
                 lastName: formData.lastName,

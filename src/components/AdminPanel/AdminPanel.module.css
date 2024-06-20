@@ -1,7 +1,7 @@
 .adminPanelContainer {
   height: 100vh;
   width: 100vw;
-  background-image: url('/Users/konstantindenisov/my-app/src/images/fonAll.JPEG');
+  background-image: url('../FavoritesPage/img.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

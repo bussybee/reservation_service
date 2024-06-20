@@ -10,7 +10,7 @@ const [data, setData] = useState([])
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/fitness")
+      .get("https://bbaj3hbmo0dg8o6gkctp.containers.yandexcloud.net/fitness")
       .then((res) => {
         setData(res.data)
       })

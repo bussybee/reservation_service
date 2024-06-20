@@ -11,7 +11,7 @@ function SpaCenters() {
 
       useEffect(() => {
         axios
-          .get("http://localhost:8081/spaCenters")
+          .get("https://bbaj3hbmo0dg8o6gkctp.containers.yandexcloud.net/spaCenters")
           .then((res) => {
             console.log(res);
             setData(res.data)

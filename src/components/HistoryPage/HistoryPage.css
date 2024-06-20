@@ -1,7 +1,7 @@
 .history-page-container {
     height: 100vh;
     width: 100vw;
-    background-image: url('/Users/konstantindenisov/my-app/src/images/fonAll.JPEG'); /* Путь к изображению фона */
+    background-image: url('../FavoritesPage/img.png'); /* Путь к изображению фона */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
