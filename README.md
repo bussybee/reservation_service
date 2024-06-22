@@ -19,7 +19,7 @@
 - [Техническое задание](https://github.com/bussybee/reservation_service/blob/main/Документация/Техническое%20задание/Техническое%20задание.pdf)
 - [Курсовая работа](https://github.com/bussybee/reservation_service/blob/main/Документация/Курсовая%20работа/Курсовая%20работа.pdf)
 - [Сопроводительное письмо](https://github.com/bussybee/reservation_service/blob/main/Документация/Техническое%20задание/Сопроводительное%20письмо.pdf)
-- [Презентация](https://github.com/bussybee/reservation_service/blob/main/Документация/Презентация/Презентация%20для%20защиты.pdf).
+- [Презентация](https://github.com/bussybee/reservation_service/blob/main/Документация/Презентация/Презентация%20для%20защиты.pdf)
 
 ## Аналитика 
 - [Яндекс Метрика](https://metrika.yandex.ru/stat/conversion_rate?id=97134881&period=today&group=dekaminute&accuracy=1&chart_type=line-chart&dimension_mode=tree&isSamplingEnabled=true)
