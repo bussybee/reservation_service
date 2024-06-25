@@ -53,10 +53,6 @@ function CentersPage() {
             <h1 className="category-header">Выберите Категорию</h1>
 
             <div className="content-wrapper">
-                <div className="image-container">
-                    <img src="https://3.bp.blogspot.com/-lj5MFa7s6pI/WmipG21jT2I/AAAAAAAAAbw/F0xKr63Iovk3MVeufz9me5ZW2-JildvnwCLcBGAs/s640/build-ripped-triceps-with-this-routine-desktop-MUSCLETECH2.jpg" alt="Center" className='center-image' />
-                </div>
-
                 <div className="text-and-button">
                     <button className="transparent-button" onClick={handleFitnessButtonClick}>Фитнес центры Воронежа</button>
                 </div>
@@ -64,23 +60,15 @@ function CentersPage() {
 
             <div className="content-wrapper">
                 <div className="text-and-button">
-                    <button className="transparent-button"onClick={handleSpaButtonClick}>Какая-то инфа о спа,
-                        при нажатии на кнопку переходит на список центровр</button>
+                    <button className="transparent-button"onClick={handleSpaButtonClick}>Спа-центры Воронежа</button>
                 </div>
 
-                <div className="image-container">
-                    <img src="path_to_your_image" alt="Center" className='center-image' />
-                </div>
             </div>
 
             <div className="content-wrapper">
-                <div className="image-container">
-                    <img src="path_to_your_image" alt="Center" className='center-image' />
-                </div>
 
                 <div className="text-and-button">
-                    <button className="transparent-button" onClick={handleBsButtonClick}>Какая-то инфа о салонах красоты,
-                        при нажатии на кнопку переходит на список центров</button>
+                    <button className="transparent-button" onClick={handleBsButtonClick}>Салоны красоты Воронежа</button>
                 </div>
             </div>
         </div>

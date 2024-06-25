@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './PersonalAccount.css';
 import { useNavigate } from "react-router-dom";
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { UserContext } from '../../utils/UserContext.js';
 
-function PersonalAccount({ setIsAuthenticated }) {
+
+function PersonalAccount() {
     const [profilePicture, setProfilePicture] = useState();
+    const { setUser } = useContext(UserContext);
+    console.log("77777777777");
+    console.log(setUser);
     const navigate = useNavigate();
     const { state } = useLocation();
 
@@ -20,8 +25,8 @@ function PersonalAccount({ setIsAuthenticated }) {
     };
 
     const onClickLogout = () => {
-        setIsAuthenticated(false);
-        localStorage.removeItem("isAuthenticated");
+        localStorage.setItem('userId', null);
+        localStorage.setItem('isAuthenticated', 'false');
         navigate("/registrationPage");
     };
 
@@ -59,18 +64,18 @@ function PersonalAccount({ setIsAuthenticated }) {
                     </div>
                     <div className="user-data">
                         <h2>Данные пользователя</h2>
-                        <p><strong>Фамилия:</strong> {state.lastName}</p>
-                        <p><strong>Имя:</strong> {state.firstName}</p>
-                        <p><strong>Почта:</strong> {state.email}</p>
-                        <p><strong>Телефон:</strong> {state.phoneNumber}</p>
-                        <p><strong>Пол:</strong> {state.gender}</p>
-                        <p><strong>Возраст:</strong> {state.age} лет</p>
+                        <p><strong>Фамилия:</strong> {setUser.lastName}</p>
+                        <p><strong>Имя:</strong> {setUser.firstName}</p>
+                        <p><strong>Почта:</strong> {setUser.email}</p>
+                        <p><strong>Телефон:</strong> {setUser.phoneNumber}</p>
+                        <p><strong>Пол:</strong> {setUser.gender}</p>
+                        <p><strong>Возраст:</strong> {setUser.age} лет</p>
                     </div>
                 </div>
                 <div className="profile-buttons">
                     <button className="profile-button">Профиль</button>
                     <button onClick={handleFavoritesButtonClick} className="profile-button">Избранное</button>
-                    <button onClick ={handleHistoryButtonClick} className="profile-button">История</button>
+                    <button onClick={handleHistoryButtonClick} className="profile-button">История</button>
                 </div>
             </div>
         </div>

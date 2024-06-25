@@ -1,13 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Navigation.css';
 import { Link } from 'react-router-dom';
 import logoImage from './imrbYjjHAjk.ico'; // Путь к изображению логотипа
+import { UserContext } from './utils/UserContext';
 
-function Navigation({ isAuthenticated, setIsAuthenticated }) {
+function Navigation() {
+    const { user, setUser } = useContext(UserContext);
     const [activeButton, setActiveButton] = useState('');
+
     useEffect(() => {
-        setIsAuthenticated(localStorage.getItem('isAuthenticated') === 'true');
-    }, [setIsAuthenticated]);
+        const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+        if (isAuthenticated !== user.isAuthenticated) {
+            setUser(prevUser => ({
+                ...prevUser,
+                isAuthenticated
+            }));
+        }
+    }, [setUser, user.isAuthenticated]);
 
     const handleButtonClick = (buttonName) => {
         setActiveButton(buttonName);
@@ -15,7 +24,11 @@ function Navigation({ isAuthenticated, setIsAuthenticated }) {
 
     const handleLogout = () => {
         localStorage.removeItem('isAuthenticated');
-        setIsAuthenticated(false);
+        setUser(prevUser => ({
+            ...prevUser,
+            isAuthenticated: false,
+            id: null
+        }));
     };
 
     return (
@@ -52,12 +65,17 @@ function Navigation({ isAuthenticated, setIsAuthenticated }) {
                             Обратная связь
                         </Link>
                     </li>
-                    {isAuthenticated ? (
-                        <li>
-                            <Link to="/personalaccount" className="nav-button">
-                                Личный кабинет
-                            </Link>
-                        </li>
+                    {user.isAuthenticated ? (
+                        <>
+                            <li>
+                                <Link to="/personalaccount" className="nav-button">
+                                    Личный кабинет
+                                </Link>
+                            </li>
+                            <li>
+                                <button onClick={handleLogout} className="nav-button">Выйти</button>
+                            </li>
+                        </>
                     ) : (
                         <li>
                             <Link to="/registrationPage" className="nav-button">

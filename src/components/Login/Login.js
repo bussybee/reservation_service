@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
-import './Login.css'; 
+import React, { useState, useContext } from 'react';
+import './Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { UserContext } from '../../utils/UserContext.js'; // Импортируем UserContext
 
-function LoginPage({setIsAuthenticated}) {
-
+function LoginPage() {
+    const { setUser } = useContext(UserContext); // Получаем setUser из контекста
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         emailOrPhone: '',
         password: '',
-        showPassword: false 
+        showPassword: false
     });
 
     const handleChange = (e) => {
@@ -30,47 +31,57 @@ function LoginPage({setIsAuthenticated}) {
         }));
     };
 
-    function generateGender(gender){
-        if(gender === "MALE"){
-            return "Мужской"
-        } else {
-            return "Женский";
-        }
+    const generateGender = (gender) => {
+        return gender === "MALE" ? "Мужской" : "Женский";
     };
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
-    setFormData({
-                emailOrPhone: '',
-                password: '',
-                showPassword: false
-            });
-    await axios({
-      url: "https://bbaj3hbmo0dg8o6gkctp.containers.yandexcloud.net/user/authenticate",
-      method: "POST",
-      data: {
-        emailOrPhone: formData.emailOrPhone,
-        password: formData.password
-      },
-    }).then(res => {
-    if(res.status === 202){
-    console.log(res);
-          setIsAuthenticated(true);
-          navigate("/personalaccount", { state:
-                                            {   firstName: res.data.firstName,
-                                                lastName: res.data.lastName,
-                                                email: res.data.email,
-                                                phoneNumber: res.data.phoneNumber.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "+7-$1-$2-$3-$4"),
-                                                gender: generateGender(res.data.gender),
-                                                age: res.data.age
-                                            }
-                                       });
-    } else {
-        // todo: print error message authentication failed
-    }
+        e.preventDefault();
+        setFormData({
+            emailOrPhone: '',
+            password: '',
+            showPassword: false
+        });
 
-    })
-      .catch((err) => console.log(err));
+        try {
+            // const res = await axios.post("http://localhost:8080/user/authenticate", {
+            //     emailOrPhone: formData.emailOrPhone,
+            //     password: formData.password
+            // });
+            const res = await axios.post("http://localhost:8081/user/authenticate", {
+                emailOrPhone: formData.emailOrPhone,
+                password: formData.password
+            });
+            console.log("5555555555555");
+            console.log(res);
+            console.log(res.data.phoneNumber);
+
+            if (res.status === 202) {
+                const user = {
+                    id: res.data.userId,
+                    firstName: res.data.firstName,
+                    lastName: res.data.lastName,
+                    email: res.data.email,
+                    phoneNumber: res.data.phoneNumber.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "+7-$1-$2-$3-$4"),
+                    gender: generateGender(res.data.gender),
+                    age: res.data.age,
+                    isAuthenticated: true,
+                    role: res.data.role
+                };
+
+                setUser(user); // Устанавливаем состояние пользователя
+                localStorage.setItem('userId', user.id);
+                localStorage.setItem('isAuthenticated', 'true');
+
+                if (user.role === "ADMIN") {
+                    navigate("/adminPanel")
+                } else {
+                    navigate("/personalaccount");
+                }
+            }
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     return (
