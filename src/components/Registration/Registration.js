@@ -50,12 +50,12 @@ function RegistrationPage() {
 //      navigate("/personalaccount");
             //   ym(97134881,'reachGoal','personalaccount')
             await axios({
-                url: "http://localhost:8081/user/create",
+                url: "http://localhost:3001/user/create",
                 method: "POST",
                 data: {
                     lastName: formData.lastName,
                     firstName: formData.firstName,
-                    age: formData.age,
+                    age: formData.age,  
                     gender: formData.gender,
                     phoneNumber: formData.phoneNumber ,
                     email: formData.email,
@@ -95,7 +95,6 @@ function RegistrationPage() {
                 .catch((err) => console.log(err));
 
         }
-        // console.log("???" + user);
 
         console.log(formData);
         setFormData({
