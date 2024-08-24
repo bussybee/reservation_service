@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Navigation from './Navigation';
 import HomePage from './components/HomePage/HomePage';
 import Centers from './components/Centers/Centers';
@@ -18,42 +18,47 @@ import AdminPanel from './components/AdminPanel/AdminPanel';
 import BookingRequests from './components/AdminPanel/BookingRequests';
 import ClientInfo from './components/AdminPanel/ClientInfo';
 import EditCenters from './components/AdminPanel/EditCenters';
+import {UserProvider} from './utils/UserContext';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    localStorage.getItem('isAuthenticated') === 'true'
-  );
-  useEffect(() => {
-    localStorage.setItem('isAuthenticated', isAuthenticated);
-  }, [isAuthenticated]);
+    const [isAuthenticated, setIsAuthenticated] = useState(
+        localStorage.getItem('isAuthenticated') === 'true'
+    );
+    useEffect(() => {
+        localStorage.setItem('isAuthenticated', isAuthenticated);
+    }, [isAuthenticated]);
 
-  return (
-    <Router>
-      <div className="App">
-        <Navigation isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/centers" element={<Centers />} />
-          <Route path="/feedback" element={<Feedback />} />
-          <Route path="/fitness" element={<Fitness />} />
-          <Route path="/personalaccount" element={<PersonalAccount setIsAuthenticated={setIsAuthenticated}/>} />
-          <Route path="/registrationPage" element={<RegistrationPage setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated}/>} />
-          <Route path="/spaCenters" element={<SpaCenters />} />
-          <Route path="/beautySalons" element={<BeautySalons />} />
-          <Route path="/fitnessPage" element={<FitnessPage />} />
-          <Route path="/booking" element={<SetApp />} />
-          <Route path="/favoritesPage" element={<FavoritesPage/>} />
-          <Route path="/historyPage" element={<HistoryPage/>} />
-          <Route path="/adminPanel" element={<AdminPanel/>} />
-          <Route path="/bookingRequests" element={<BookingRequests/>} />
-          <Route path="/clientInfo" element={<ClientInfo/>} />
-          <Route path="editCenters" element={<EditCenters/>} />
+    return (
+        <UserProvider>
+            <Router>
+                <div className="App">
+                    <Navigation isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+                    <Routes>
+                        <Route path="/" element={<HomePage/>}/>
+                        <Route path="/centers" element={<Centers/>}/>
+                        <Route path="/feedback" element={<Feedback/>}/>
+                        <Route path="/fitness" element={<Fitness/>}/>
+                        <Route path="/personalaccount"
+                               element={<PersonalAccount setIsAuthenticated={setIsAuthenticated}/>}/>
+                        <Route path="/registrationPage"
+                               element={<RegistrationPage setIsAuthenticated={setIsAuthenticated}/>}/>
+                        <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated}/>}/>
+                        <Route path="/spaCenters" element={<SpaCenters/>}/>
+                        <Route path="/beautySalons" element={<BeautySalons/>}/>
+                        <Route path="/fitnessPage" element={<FitnessPage/>}/>
+                        <Route path="/booking" element={<SetApp/>}/>
+                        <Route path="/favoritesPage" element={<FavoritesPage/>}/>
+                        <Route path="/historyPage" element={<HistoryPage/>}/>
+                        <Route path="/adminPanel" element={<AdminPanel/>}/>
+                        <Route path="/bookingRequests" element={<BookingRequests/>}/>
+                        <Route path="/clientInfo" element={<ClientInfo/>}/>
+                        <Route path="editCenters" element={<EditCenters/>}/>
 
-        </Routes>
-      </div>
-    </Router>
-  );
+                    </Routes>
+                </div>
+            </Router>
+        </UserProvider>
+    );
 }
 
 export default App;

@@ -32,7 +32,7 @@ function RegistrationPage() {
         } else {
             return "Женский";
         }
-    };
+    }
 
 
     const handleSubmit = async (e) => {
@@ -95,7 +95,7 @@ function RegistrationPage() {
                 .catch((err) => console.log(err));
 
         }
-        console.log("???" + user);
+        // console.log("???" + user);
 
         console.log(formData);
         setFormData({
