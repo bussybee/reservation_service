@@ -64,4 +64,11 @@ public class ReservationService {
         return reservationMapper.toDto(reservationRepository.save(reservation));
     }
 
+    public List<ReservationDTO> getReservationsByUserId(Long userId) {
+        List<Reservation> reservations = reservationRepository.findAllByUserUserId(userId);
+        return reservations.stream()
+                .map(reservationMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
 }

@@ -6,14 +6,12 @@ import lombok.experimental.FieldDefaults;
 import org.apache.tomcat.websocket.AuthenticationException;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import ru.vsu.cs.maslova_e_i.dto.UserDTO;
 import ru.vsu.cs.maslova_e_i.model.AuthenticationRequest;
 import ru.vsu.cs.maslova_e_i.model.User;
 import ru.vsu.cs.maslova_e_i.repository.UserRepository;
 import ru.vsu.cs.maslova_e_i.util.mapper.UserMapper;
 
-import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,14 +59,15 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public void updateUserImage(Long id, MultipartFile image) throws IOException {
+    public void updateUserImage(Long id, String imageUrl) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("User", id));
-        user.setImage(image.getBytes());
+
+        user.setImage(imageUrl);
         userRepository.save(user);
     }
 
-    public byte[] getUserImage(Long id) {
+    public String getUserImage(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("User", id)).getImage();
     }

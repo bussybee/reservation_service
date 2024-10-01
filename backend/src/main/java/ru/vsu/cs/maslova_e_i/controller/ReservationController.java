@@ -46,4 +46,10 @@ public class ReservationController {
     public ResponseEntity<ReservationDTO> approveReservation(@PathVariable Long id){
         return new ResponseEntity<>(reservationService.approveReservationRequest(id), HttpStatus.OK);
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ReservationDTO>> getUserReservations(@PathVariable Long userId) {
+        return new ResponseEntity<>(reservationService.getReservationsByUserId(userId), HttpStatus.OK);
+    }
+
 }

@@ -4,14 +4,11 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ru.vsu.cs.maslova_e_i.dto.UserDTO;
 import ru.vsu.cs.maslova_e_i.service.UserService;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -23,17 +20,16 @@ public class UserController {
 
     UserService service;
 
-    @PatchMapping(value = "{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> updateUserImage(@PathVariable Long id,
-                                                  @RequestPart MultipartFile image) throws IOException {
-
-        service.updateUserImage(id, image);
+    @PatchMapping(value = "{id}/image-url")
+    public ResponseEntity<String> updateUserImage(@PathVariable Long id, @RequestParam String imageUrl) {
+        service.updateUserImage(id, imageUrl);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "{id}/image", produces = {MediaType.IMAGE_PNG_VALUE})
-    public byte[] getImage(@PathVariable Long id) {
-        return service.getUserImage(id);
+    @GetMapping(value = "{id}/image")
+    public ResponseEntity<String> getImage(@PathVariable Long id) {
+        String imageUrl = service.getUserImage(id);
+        return ResponseEntity.ok(imageUrl);
     }
 
     @GetMapping

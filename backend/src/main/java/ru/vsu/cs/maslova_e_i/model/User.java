@@ -39,7 +39,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String phoneNumber;
-    byte[] image;
+    String image;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "favorites", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "institution_id"))
