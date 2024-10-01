@@ -44,15 +44,10 @@ function LoginPage() {
         });
 
         try {
-            // const res = await axios.post("http://localhost:8080/user/authenticate", {
-            //     emailOrPhone: formData.emailOrPhone,
-            //     password: formData.password
-            // });
             const res = await axios.post("http://localhost:8081/user/authenticate", {
                 emailOrPhone: formData.emailOrPhone,
                 password: formData.password
             });
-            console.log("5555555555555");
             console.log(res);
             console.log(res.data.phoneNumber);
 
@@ -66,14 +61,15 @@ function LoginPage() {
                     gender: generateGender(res.data.gender),
                     age: res.data.age,
                     isAuthenticated: true,
-                    role: res.data.role
+                    role: res.data.role,
+                    image: res.data.image   
                 };
 
                 setUser(user); // Устанавливаем состояние пользователя
                 localStorage.setItem('userId', user.id);
                 localStorage.setItem('isAuthenticated', 'true');
 
-                if (user.role === "ADMIN") {
+                if (user.email === "roma81187@gmail.com") {
                     navigate("/adminPanel")
                 } else {
                     navigate("/personalaccount");

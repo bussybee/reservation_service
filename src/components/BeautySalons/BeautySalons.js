@@ -1,22 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './BeautySalons.css';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from 'axios';
 
 function BeautySalons() {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true); // Состояние загрузки
+    const [error, setError] = useState(null); // Состояние для ошибок
 
-    const [data, setData] = useState([])
+    const navigate = useNavigate();
 
-      useEffect(() => {
-        axios
-          .get("http://localhost:8081/beautySalons")
-          .then((res) => {
-            console.log(res);
-            setData(res.data)
-          })
-      });
-        const navigate = useNavigate();
+    useEffect(() => {
+        const fetchBeautySalons = async () => {
+            try {
+                const response = await axios.get("http://localhost:8081/beautySalons", {
+                    headers: {
+                        "Access-Control-Allow-Origin": "http://localhost",
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                setData(response.data); // Устанавливаем данные в состояние
+                setLoading(false); // Устанавливаем состояние загрузки в false
+            } catch (err) {
+                console.error('Ошибка при получении данных с сервера:', err);
+                setError('Не удалось загрузить данные.'); // Устанавливаем сообщение об ошибке
+                setLoading(false); // Устанавливаем состояние загрузки в false
+            }
+        };
+
+        fetchBeautySalons(); // Вызов функции для получения данных
+    }, []); // Пустой массив зависимостей, чтобы вызов произошел только один раз
+
+    const handleSalonDetailClick = (salonId) => {
+        // Функция для навигации на страницу деталей салона
+        navigate(`/beautySalon/${salonId}`);
+    };
+
+    // Проверка состояния загрузки и ошибок
+    if (loading) {
+        return <p>Загрузка...</p>;
+    }
+
+    if (error) {
+        return <p>{error}</p>;
+    }
 
     return (
         <div className="beauty-salon-page">
@@ -34,7 +62,9 @@ function BeautySalons() {
                             <p className="center-rating">Рейтинг: {center.rating}</p>
                         </div>
                         <div className="center-button">
-                            <button className="transparent-button-bs">Подробнее</button>
+                            <button className="transparent-button-bs" onClick={() => handleSalonDetailClick(center.id)}>
+                                Подробнее
+                            </button>
                         </div>
                     </div>
                 ))}

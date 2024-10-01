@@ -1,10 +1,10 @@
-import React, { useState, useContext  } from 'react';
-import './Registration.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from "axios";
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../utils/UserContext.js';
+import './Registration.css';
 
 function RegistrationPage() {
     const { setUser } = useContext(UserContext);
@@ -37,6 +37,7 @@ function RegistrationPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (
             formData.lastName &&
             formData.firstName &&
@@ -46,56 +47,74 @@ function RegistrationPage() {
             formData.email &&
             formData.password
         ) {
-            localStorage.setItem('isAuthenticated', true);
-//      navigate("/personalaccount");
-            //   ym(97134881,'reachGoal','personalaccount')
-            await axios({
-                url: "http://localhost:3001/user/create",
-                method: "POST",
-                data: {
-                    lastName: formData.lastName,
-                    firstName: formData.firstName,
-                    age: formData.age,  
-                    gender: formData.gender,
-                    phoneNumber: formData.phoneNumber ,
-                    email: formData.email,
-                    password: formData.password
-                },
-            }).then(res => {
-                if(res.status === 201){
-                    console.log("!!!!!!" + res);
-                    const user = {
-                        id: res.data.id,
-                        firstName: res.data.firstName,
-                        lastName: res.data.lastName,
-                        email: res.data.email,
-                        phoneNumber: res.data.phoneNumber.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "+7-$1-$2-$3-$4"),
-                        gender: generateGender(res.data.gender),
-                        age: res.data.age,
-                        isAuthenticated: true,
-                        role: res.data.role
-                    };
-                    setUser(user); // Устанавливаем состояние пользователя
-                    localStorage.setItem('userId', user.id);
-                    localStorage.setItem('isAuthenticated', 'true');
-                    navigate("/personalaccount", { state:
-                            {   firstName: res.data.firstName,
-                                lastName: res.data.lastName,
-                                email: res.data.email,
-                                phoneNumber: res.data.phoneNumber.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "+7-$1-$2-$3-$4"),
-                                gender: generateGender(res.data.gender),
-                                age: res.data.age
+            try {
+                // Выполняем запрос на сервер для создания пользователя 
+                const res = await axios({
+                    url: "http://localhost:8081/user/create",
+                    method: "POST",
+                    data: {
+                        lastName: formData.lastName,
+                        firstName: formData.firstName,
+                        age: formData.age,
+                        gender: formData.gender,
+                        phoneNumber: formData.phoneNumber,
+                        email: formData.email,
+                        password: formData.password
+                    },
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                // Проверка статуса ответа 
+                if (res.status === 201) {
+                    console.log("Response: ", res);
+
+                    // Проверяем, что в ответе есть userId
+                    if (res.data.userId) {
+                        const user = {
+                            id: res.data.userId,  // Присваиваем userId
+                            firstName: res.data.firstName,
+                            lastName: res.data.lastName,
+                            email: res.data.email,
+                            phoneNumber: res.data.phoneNumber.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "+7-$1-$2-$3-$4"),
+                            gender: generateGender(res.data.gender),
+                            age: res.data.age,
+                            isAuthenticated: true,
+                            role: res.data.role
+                        };
+
+                        // Сохраняем пользователя в контекст 
+                        setUser(user);
+
+                        // Сохраняем идентификатор пользователя и статус аутентификации в localStorage 
+                        localStorage.setItem('userId', user.id);
+                        localStorage.setItem('isAuthenticated', 'true');
+
+                        // Навигация с передачей данных в состояние 
+                        navigate("/personalaccount", {
+                            state: {
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                email: user.email,
+                                phoneNumber: user.phoneNumber,
+                                gender: user.gender,
+                                age: user.age
                             }
-                    });
+                        });
+                    } else {
+                        console.error("Ошибка: userId отсутствует в ответе сервера.");
+                        console.log("Полный ответ сервера: ", res);
+                    }
                 } else {
-                    // todo: print error message authentication failed
+                    console.log("Ошибка аутентификации.");
                 }
-
-            })
-                .catch((err) => console.log(err));
-
+            } catch (err) {
+                console.log(err);
+            }
         }
 
+        // Сбрасываем форму 
         console.log(formData);
         setFormData({
             lastName: '',
@@ -228,4 +247,3 @@ function RegistrationPage() {
 }
 
 export default RegistrationPage;
-

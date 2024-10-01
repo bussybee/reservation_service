@@ -6,7 +6,7 @@ function BookingPage({ selectedService, selectedDate, selectedTime, serviceCost 
 
   const handleBooking = () => {
     setShowModal(true);
-    setTimeout(() => setShowModal(false), 3000); // Закрытие окна через 3 секунды
+    setTimeout(() => setShowModal(false), 8081); // Закрытие окна через 3 секунды
   };
 
   return (

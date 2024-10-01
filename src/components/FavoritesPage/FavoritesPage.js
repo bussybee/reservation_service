@@ -1,28 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './FavoritesPage.css';
 import { useNavigate } from 'react-router-dom';
 
 function FavoritesPage() {
     const navigate = useNavigate();
+    const [favorites, setFavorites] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const fitnessCenters = [
-        {
-            id: 1,
-            name: 'X-fit',
-            address: 'ул. Генерала Лизюкова, 35Б',
-            rating: 4.5,
-            image: 'https://tpmag.ru/assets/cache_image/images/partners/xfit-logo_400x450_e1c.png',
-            link: '/fitnessPage/xfit',
-        },
-        {
-            id: 2,
-            name: 'Lion-fitnes',
-            address: 'площадь Ленина,8Б',
-            rating: 4.8,
-            image: 'https://cdn.dribbble.com/users/1802/screenshots/1642015/lion.jpg?compress=1&resize=400x300',
-            link: '/fitnessPage/lion'
-        },
-    ];
+    const userId = localStorage.getItem('userId'); // Получаем userId из localStorage
+
+    useEffect(() => {
+        const fetchFavorites = async () => {
+            try {
+                const response = await fetch(`http://localhost:8081/institution/favorites/${userId}`);
+                
+                if (!response.ok) {
+                    throw new Error('Ошибка при загрузке избранных центров');
+                }
+
+                const data = await response.json();
+                setFavorites(data);  // Устанавливаем полученные данные в состояние
+                setLoading(false);
+            } catch (err) {
+                console.error(err);
+                setError(err.message);
+                setLoading(false);
+            }
+        };
+
+        fetchFavorites();
+    }, [userId]);
 
     const handlePersAccButtonClick = () => {
         navigate('/personalAccount');
@@ -32,18 +40,35 @@ function FavoritesPage() {
         navigate('/historyPage');
     };
 
+    if (loading) {
+        return <p>Загрузка...</p>;
+    }
+
+    if (error) {
+        return <p>Ошибка: {error}</p>;
+    }
+
     return (
         <div className="favorites-page-container">
             <div className="favorites-page">
                 <h1 className="favorites-title">Избранное</h1>
-                <div className="favorite-center-info">
-                    <div className="center-info">
-                        <h2 className="center-name">{fitnessCenters[0].name}</h2>
-                        <p className="center-address">{fitnessCenters[0].address}</p>
-                        <p className="center-rating">Рейтинг: {fitnessCenters[0].rating}</p>
-                        <a href={fitnessCenters[0].link} className="center-link">Подробнее</a>
-                    </div>
-                </div>
+                
+                {/* Проверка на наличие избранных центров */}
+                {favorites.length === 0 ? (
+                    <p>У вас нет избранных центров.</p>
+                ) : (
+                    favorites.map(center => (
+                        <div key={center.id} className="favorite-center-info">
+                            <div className="center-info">
+                                <h2 className="center-name">{center.name}</h2>
+                                <p className="center-address">{center.address}</p>
+                                <p className="center-rating">Рейтинг: {center.rating}</p>
+                                <a href={`/fitnessPage/${center.id}`} className="center-link">Подробнее</a>
+                            </div>
+                        </div>
+                    ))
+                )}
+
                 <div className="profile-buttons-favorite">
                     <button onClick={handlePersAccButtonClick} className="profile-button-favorite">Профиль</button>
                     <button className="profile-button-favorite current">Избранное</button>

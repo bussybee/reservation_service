@@ -67,14 +67,18 @@ function Navigation() {
                     </li>
                     {user.isAuthenticated ? (
                         <>
-                            <li>
-                                <Link to="/personalaccount" className="nav-button">
-                                    Личный кабинет
-                                </Link>
-                            </li>
-                            <li>
-                                <button onClick={handleLogout} className="nav-button">Выйти</button>
-                            </li>
+                        {user.email === "roma81187@gmail.com" ? (
+                        <li>
+                            <Link to="/adminpanel" className="nav-button">
+                                Личный кабинет
+                            </Link>
+                        </li>
+                        ) : (
+                        <li>
+                            <Link to="/personalaccount" className="nav-button">
+                                Личный кабинет
+                            </Link>
+                        </li>)}
                         </>
                     ) : (
                         <li>

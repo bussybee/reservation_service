@@ -1,23 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './SpaCenters.css';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from 'axios';
 
 function SpaCenters() {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true); // Состояние загрузки
+    const [error, setError] = useState(null); // Состояние для ошибок
 
+    const navigate = useNavigate();
 
-    const [data, setData] = useState([])
+    useEffect(() => {
+        const fetchSpaCenters = async () => {
+            try {
+                const response = await axios.get("http://localhost:8081/spaCenters");
+                setData(response.data); // Устанавливаем данные в состояние
+                setLoading(false); // Устанавливаем состояние загрузки в false
+            } catch (err) {
+                console.error('Ошибка при получении данных с сервера:', err);
+                setError('Не удалось загрузить данные.'); // Устанавливаем сообщение об ошибке
+                setLoading(false); // Устанавливаем состояние загрузки в false
+            }
+        };
 
-      useEffect(() => {
-        axios
-          .get("http://localhost:8081/spaCenters")
-          .then((res) => {
-            console.log(res);
-            setData(res.data)
-          })
-      });
-        const navigate = useNavigate();
+        fetchSpaCenters(); // Вызов функции для получения данных
+    }, []); // Пустой массив зависимостей, чтобы вызов произошел только один раз
+
+    const handleCenterDetailClick = (centerId) => {
+        // Функция для навигации на страницу деталей спа центра
+        navigate(`/spaCenter/${centerId}`);
+    };
+
+    // Проверка состояния загрузки и ошибок
+    if (loading) {
+        return <p>Загрузка...</p>;
+    }
+
+    if (error) {
+        return <p>{error}</p>;
+    }
 
     return (
         <div className="spa-centers-page">
@@ -35,7 +56,12 @@ function SpaCenters() {
                             <p className="center-rating">Рейтинг: {center.rating}</p>
                         </div>
                         <div className="center-button">
-                            <button className="transparent-button-spa">Подробнее</button>
+                            <button 
+                                className="transparent-button-spa" 
+                                onClick={() => handleCenterDetailClick(center.id)}
+                            >
+                                Подробнее
+                            </button>
                         </div>
                     </div>
                 ))}

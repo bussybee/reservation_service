@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './FitnessPage.css';
 
 function FitnessPage() {
@@ -8,45 +9,27 @@ function FitnessPage() {
     const [showModal, setShowModal] = useState(false);
     const [userRating, setUserRating] = useState(0);
     const [userComment, setUserComment] = useState('');
-    const [comments, setComments] = useState([
-        { id: 1, user: 'User1', comment: 'Отличный центр, рекомендую!', rating: 4.5 },
-        { id: 2, user: 'User2', comment: 'Очень хороший персонал!', rating: 4.8 },
-        { id: 3, user: 'User3', comment: 'Удобное расположение и широкий выбор услуг.', rating: 4.2 },
-    ]);
-
-    const centerData = {
-        name: 'Fitness Center 1',
-        address: 'Address 1',
-        rating: 4.8,
-        description: 'Описание фитнес центра. Здесь можно добавить любую информацию о центре.',
-        image: 'https://via.placeholder.com/500x500',
-        schedule: [
-            { date: '2024-05-01', day: 'Пн' },
-            { date: '2024-05-02', day: 'Вт' },
-            { date: '2024-05-03', day: 'Ср' },
-            { date: '2024-05-04', day: 'Чт' },
-            { date: '2024-05-05', day: 'Пт' },
-            { date: '2024-05-06', day: 'Сб' },
-            { date: '2024-05-07', day: 'Вс' },
-            { date: '2024-05-08', day: 'Пн' },
-            { date: '2024-05-09', day: 'Вт' },
-            { date: '2024-05-10', day: 'Ср' },
-            { date: '2024-05-11', day: 'Чт' },
-            { date: '2024-05-12', day: 'Пт' },
-            // Добавьте больше дат и дней недели при необходимости
-        ],
-        availableTimes: [
-            '10:00-11:30',
-            '12:00-13:30',
-            '14:00-15:30',
-            '16:00-17:30',
-        ]
-    };
-
+    const [comments, setComments] = useState([]);
+    const [centerData, setCenterData] = useState(null); // Состояние для хранения данных о центре
     const navigate = useNavigate();
 
+    // Получение данных о центре с сервера
+    useEffect(() => {
+        const fetchCenterData = async () => {
+            try {
+                const response = await axios.get('http://localhost:8081/institution/{centerId}'); // Замените {centerId} на реальный ID центра
+                setCenterData(response.data);
+                setComments(response.data.comments || []); // Предположим, что комментарии приходят вместе с данными о центре
+            } catch (error) {
+                console.error('Ошибка при получении данных о центре:', error);
+            }
+        };
+
+        fetchCenterData();
+    }, []);
+
     const handleAddToFavorites = () => {
-        // Добавление центра в избранное
+        // Логика для добавления центра в избранное
     };
 
     const handleScheduleItemClick = (date) => {
@@ -62,7 +45,7 @@ function FitnessPage() {
                 selectedService: 'Fitness Session',
                 selectedDate: selectedDate,
                 selectedTime: time,
-                serviceCost: '1000 руб.' // укажите стоимость услуги
+                serviceCost: '1000 руб.' // Укажите стоимость услуги
             }
         });
     };
@@ -75,19 +58,28 @@ function FitnessPage() {
         setUserComment(e.target.value);
     };
 
-    const handleAddComment = () => {
-        // Добавить комментарий и оценку в список комментариев
+    const handleAddComment = async () => {
         const newComment = {
-            id: comments.length + 1,
             user: 'You',
             comment: userComment,
             rating: userRating,
         };
-        setComments([...comments, newComment]);
-        // Сбросить состояние
-        setUserComment('');
-        setUserRating(0);
+
+        try {
+            // Отправка нового комментария на сервер
+            await axios.post(`http://localhost:8081/institution/${centerData.id}/comment`, newComment);
+            setComments([...comments, newComment]); // Обновляем состояние комментариев
+            // Сбросить состояние
+            setUserComment('');
+            setUserRating(0);
+        } catch (error) {
+            console.error('Ошибка при добавлении комментария:', error);
+        }
     };
+
+    if (!centerData) {
+        return <div>Загрузка...</div>; // Отображение во время загрузки
+    }
 
     return (
         <div className="fitness-page">
