@@ -19,7 +19,6 @@ import AdminPanel from './components/AdminPanel/AdminPanel';
 import BookingRequests from './components/AdminPanel/BookingRequests';
 import ClientInfo from './components/AdminPanel/ClientInfo';
 import EditCenters from './components/AdminPanel/EditCenters';
-import {UserProvider} from './utils/UserContext';
 import CreateCenter from './components/AdminPanel/CreateCenter';
 
 function App() {
