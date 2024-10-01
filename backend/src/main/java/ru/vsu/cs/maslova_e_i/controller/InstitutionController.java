@@ -5,16 +5,13 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ru.vsu.cs.maslova_e_i.dto.CommentDTO;
 import ru.vsu.cs.maslova_e_i.dto.InstitutionDTO;
 import ru.vsu.cs.maslova_e_i.service.InstitutionService;
 import ru.vsu.cs.maslova_e_i.util.InstitutionType;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -60,19 +57,20 @@ public class InstitutionController {
         return new ResponseEntity<>(service.addComment(newComment, id), HttpStatus.OK);
     }
 
-    @PatchMapping(value = "institution/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PatchMapping(value = "institution/{id}/image")
     @Operation(summary = "Обновить изображение учреждения")
     public ResponseEntity<String> updateInstitutionImage(@PathVariable Long id,
-                                                         @RequestPart MultipartFile image) throws IOException {
+                                                         @RequestParam String imageUrl) {
 
-        service.updateInstitutionImage(id, image);
+        service.updateInstitutionImage(id, imageUrl);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "institution/image/{id}", produces = {MediaType.IMAGE_PNG_VALUE})
+    @GetMapping(value = "institution/image/{id}")
     @Operation(summary = "Получить изображение учреждения по id")
-    public byte[] getImage(@PathVariable Long id) {
-        return service.getInstitutionImage(id);
+    public ResponseEntity<String> getImage(@PathVariable Long id) {
+        String imageUrl = service.getInstitutionImage(id);
+        return ResponseEntity.ok(imageUrl);
     }
 
     @PutMapping("institution/{id}")
@@ -84,5 +82,11 @@ public class InstitutionController {
     public ResponseEntity<Void> addToFavorites(@PathVariable Long institutionId, @PathVariable Long userId) {
         service.addToFavoritesByUser(userId, institutionId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/institution/favorites/{userId}")
+    @Operation(summary = "Получить список избранных учреждений пользователя")
+    public ResponseEntity<List<InstitutionDTO>> getFavoritesByUser(@PathVariable Long userId) {
+        return new ResponseEntity<>(service.getFavoritesByUser(userId), HttpStatus.OK);
     }
 }

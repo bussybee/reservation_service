@@ -13,7 +13,7 @@ public class InstitutionDTO {
     String name;
     String address;
     Double rating;
-    byte[] image;
+    String image;
     InstitutionType type;
 
 }
