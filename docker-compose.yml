@@ -1,4 +1,12 @@
 services:
+  frontend:
+    image: reservation-front
+    container_name: res-front
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
   backend:
     build: backend
     image: busybeee/reservation-backend
