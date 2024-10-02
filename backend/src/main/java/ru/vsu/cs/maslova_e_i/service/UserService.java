@@ -27,7 +27,7 @@ public class UserService {
 
     public UserDTO createUser(UserDTO user) {
         User userEntity = userMapper.toUser(user);
-        if (user.getRole().equals(Role.ADMIN)) {
+        if (user.getRole() != null) {
             userEntity.setRole(Role.ADMIN);
         } else {
             userEntity.setRole(Role.USER);
