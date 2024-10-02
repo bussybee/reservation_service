@@ -31,4 +31,7 @@
 
 ## Ссылки на код
 - [backend](https://github.com/bussybee/reservation_service/tree/backend)
-- [frontend](https://github.com/bussybee/reservation_service/tree/frontend) 
+- [frontend](https://github.com/bussybee/reservation_service/tree/frontend)
+
+## Ссылка на проект
+- (http://89.169.150.251/)
