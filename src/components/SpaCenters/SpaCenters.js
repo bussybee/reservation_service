@@ -13,7 +13,7 @@ function SpaCenters() {
     useEffect(() => {
         const fetchSpaCenters = async () => {
             try {
-                const response = await axios.get("http://localhost:8081/spaCenters");
+                const response = await axios.get("http://89.169.150.251:8081/spaCenters");
                 setData(response.data); // Устанавливаем данные в состояние
                 setLoading(false); // Устанавливаем состояние загрузки в false
             } catch (err) {

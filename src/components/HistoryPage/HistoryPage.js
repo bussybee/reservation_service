@@ -13,7 +13,7 @@ function HistoryPage() {
     useEffect(() => {
         const fetchReservations = async () => {
             try {
-                const response = await fetch(`http://localhost:8081/reservations/user/${userId}`);
+                const response = await fetch(`http://89.169.150.251:8081/reservations/user/${userId}`);
                 
                 if (!response.ok) {
                     throw new Error('Ошибка при загрузке истории бронирований');

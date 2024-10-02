@@ -10,7 +10,7 @@ function Fitness() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/fitness")
+      .get("http://89.169.150.251:8081/fitness")
       .then((res) => {
         setData(res.data);
       })

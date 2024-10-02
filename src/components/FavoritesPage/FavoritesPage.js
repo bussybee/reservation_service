@@ -13,7 +13,7 @@ function FavoritesPage() {
     useEffect(() => {
         const fetchFavorites = async () => {
             try {
-                const response = await fetch(`http://localhost:8081/institution/favorites/${userId}`);
+                const response = await fetch(`http://89.169.150.251:8081/institution/favorites/${userId}`);
                 
                 if (!response.ok) {
                     throw new Error('Ошибка при загрузке избранных центров');

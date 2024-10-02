@@ -25,7 +25,7 @@ const CreateCenter = () => {
     e.preventDefault();
     if (newCenter.name && newCenter.address && newCenter.category && newCenter.photoUrl) {
         try {
-            const response = await axios.post("http://localhost:8081/institution", {
+            const response = await axios.post("http://89.169.150.251:8081/institution", {
                 name: newCenter.name,
                 address: newCenter.address,
                 category: newCenter.category,

@@ -59,7 +59,7 @@ const AdminPanel = () => {
 
     try {
       const encodedImageUrl = encodeURIComponent(imageUrl);
-      const response = await fetch(`http://localhost:8081/user/${userId}/image-url?imageUrl=${encodedImageUrl}`, {
+      const response = await fetch(`http://89.169.150.251:8081/user/${userId}/image-url?imageUrl=${encodedImageUrl}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ const AdminPanel = () => {
   // Получение изображения администратора с сервера
   const fetchUserProfilePicture = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:8081/user/${userId}/image`);
+      const response = await fetch(`http://89.169.150.251:8081/user/${userId}/image`);
       if (response.ok) {
         const imageUrl = await response.text(); // Получаем URL изображения
         setProfilePicture(imageUrl);  // Устанавливаем URL изображения в состояние

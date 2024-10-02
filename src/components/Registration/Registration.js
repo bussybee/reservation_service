@@ -50,7 +50,7 @@ function RegistrationPage() {
             try {
                 // Выполняем запрос на сервер для создания пользователя 
                 const res = await axios({
-                    url: "http://localhost:8081/user/create",
+                    url: "http://89.169.150.251:8081/user/create",
                     method: "POST",
                     data: {
                         lastName: formData.lastName,

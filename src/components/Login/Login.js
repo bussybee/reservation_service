@@ -44,7 +44,7 @@ function LoginPage() {
         });
 
         try {
-            const res = await axios.post("http://localhost:8081/user/authenticate", {
+            const res = await axios.post("http://89.169.150.251:8081/user/authenticate", {
                 emailOrPhone: formData.emailOrPhone,
                 password: formData.password
             });

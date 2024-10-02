@@ -13,9 +13,9 @@ function BeautySalons() {
     useEffect(() => {
         const fetchBeautySalons = async () => {
             try {
-                const response = await axios.get("http://localhost:8081/beautySalons", {
+                const response = await axios.get("http://89.169.150.251:8081/beautySalons", {
                     headers: {
-                        "Access-Control-Allow-Origin": "http://localhost",
+                        "Access-Control-Allow-Origin": "http://89.169.150.251",
                         "Content-Type": "application/json"
                     }
                 });

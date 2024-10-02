@@ -17,7 +17,7 @@ function FitnessPage() {
     useEffect(() => {
         const fetchCenterData = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/institution/{centerId}'); // Замените {centerId} на реальный ID центра
+                const response = await axios.get('http://89.169.150.251:8081/institution/{centerId}'); // Замените {centerId} на реальный ID центра
                 setCenterData(response.data);
                 setComments(response.data.comments || []); // Предположим, что комментарии приходят вместе с данными о центре
             } catch (error) {
@@ -67,7 +67,7 @@ function FitnessPage() {
 
         try {
             // Отправка нового комментария на сервер
-            await axios.post(`http://localhost:8081/institution/${centerData.id}/comment`, newComment);
+            await axios.post(`http://89.169.150.251:8081/institution/${centerData.id}/comment`, newComment);
             setComments([...comments, newComment]); // Обновляем состояние комментариев
             // Сбросить состояние
             setUserComment('');
