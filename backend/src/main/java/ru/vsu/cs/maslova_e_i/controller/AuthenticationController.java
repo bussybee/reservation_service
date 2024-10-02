@@ -18,7 +18,7 @@ import ru.vsu.cs.maslova_e_i.service.UserService;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequestMapping("user")
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "*")
 public class AuthenticationController {
 
     UserService service;

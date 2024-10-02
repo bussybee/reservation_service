@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("course")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "*")
 public class CourseController {
 
     CourseService service;
