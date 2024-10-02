@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, uses = {InstitutionMapper.class})
 public interface UserMapper {
 
-    @Mapping(target = "role", constant = "USER")
+    //@Mapping(target = "role", constant = "USER")
     User toUser(UserDTO userDTO);
 
     @Mapping(target = "password", ignore = true)

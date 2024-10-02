@@ -10,6 +10,7 @@ import ru.vsu.cs.maslova_e_i.dto.UserDTO;
 import ru.vsu.cs.maslova_e_i.model.AuthenticationRequest;
 import ru.vsu.cs.maslova_e_i.model.User;
 import ru.vsu.cs.maslova_e_i.repository.UserRepository;
+import ru.vsu.cs.maslova_e_i.util.Role;
 import ru.vsu.cs.maslova_e_i.util.mapper.UserMapper;
 
 import java.util.Base64;
@@ -26,6 +27,11 @@ public class UserService {
 
     public UserDTO createUser(UserDTO user) {
         User userEntity = userMapper.toUser(user);
+        if (user.getRole() != null) {
+            userEntity.setRole(Role.ADMIN);
+        } else {
+            userEntity.setRole(Role.USER);
+        }
         userEntity.setPhoneNumber(normalizePhoneNumber(user.getPhoneNumber()));
         userEntity.setPassword(encodePassword(userEntity.getPassword()));
         return userMapper.toDto(userRepository.save(userEntity));
