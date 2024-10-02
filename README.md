@@ -34,4 +34,4 @@
 - [frontend](https://github.com/bussybee/reservation_service/tree/frontend)
 
 ## Ссылка на проект
-- (http://89.169.150.251/)
+- http://89.169.150.251/
