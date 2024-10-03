@@ -15,7 +15,7 @@ function FitnessPage() {
     useEffect(() => {
         const fetchCenterData = async () => {
             try {
-                const response = await axios.get('http://89.169.150.251:8081/institution/{centerId}'); // Замените {centerId} на реальный ID центра
+                const response = await axios.get(`http://89.169.150.251:8081/institution/${id}`); // id центра в URL
                 setCenterData(response.data);
                 setComments(response.data.comments || []);
                 setServices(response.data.services || []); // Предполагаем, что услуги приходят с центром
@@ -38,9 +38,27 @@ function FitnessPage() {
             email: localStorage.getItem('email'),
             phone: localStorage.getItem('phone'),
             approved: false,  // Статус бронирования по умолчанию
-            competed: false,  // Завершен ли курс
+            completed: false,  // Завершен ли курс
         };
-    
+
+        try {
+            // Отправка данных о бронировании на сервер
+            await axios.post('http://89.169.150.251:8081/reservations', reservationData); // Добавьте свой endpoint
+            alert('Бронирование успешно!');
+        } catch (error) {
+            console.error('Ошибка при бронировании:', error);
+            alert('Произошла ошибка при бронировании');
+        }
+    };
+
+    // Функция для добавления комментария
+    const handleAddComment = async () => {
+        const newComment = {
+            userId,
+            rating: userRating,
+            comment: userComment
+        };
+
         try {
             // Отправка нового комментария на сервер
             await axios.post(`http://89.169.150.251:8081/institution/${centerData.id}/comment`, newComment);
@@ -49,11 +67,10 @@ function FitnessPage() {
             setUserComment('');
             setUserRating(0);
         } catch (error) {
-            console.error('Ошибка при бронировании:', error);
-            alert('Произошла ошибка при бронировании');
+            console.error('Ошибка при добавлении комментария:', error);
+            alert('Произошла ошибка при добавлении комментария');
         }
     };
-    
 
     if (!centerData) {
         return <div>Загрузка...</div>;
@@ -117,7 +134,7 @@ function FitnessPage() {
                             </span>
                         ))}
                     </div>
-                    <button>Добавить отзыв</button>
+                    <button onClick={handleAddComment}>Добавить отзыв</button>
                 </div>
             </div>
         </div>

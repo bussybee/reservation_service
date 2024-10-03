@@ -8,7 +8,7 @@ function BookingRequests() {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/reservations');
+        const response = await axios.get('http://89.169.150.251:8081/reservations');
         console.log(response.data);
         setRequests(response.data); // Сохраняем заявки в состояние
       } catch (error) {
@@ -22,7 +22,7 @@ function BookingRequests() {
   const acceptBooking = async (id) => {  
     console.log('Booking ID:', id);
     try {
-      const response = await axios.patch(`http://localhost:8081/reservations/${id}/approve`);
+      const response = await axios.patch(`http://89.169.150.251:8081/reservations/${id}/approve`);
       if (response.status === 200) {
         setRequests(requests.map(request =>
           request.id === id ? { ...request, approved: true } : request
@@ -40,7 +40,7 @@ function BookingRequests() {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:8081/reservations/${bookingId}`);
+      await axios.delete(`http://89.169.150.251:8081/reservations/${bookingId}`);
       setRequests(requests.filter(request => request.id !== bookingId));
       alert('Бронирование успешно отклонено.');
     } catch (error) {

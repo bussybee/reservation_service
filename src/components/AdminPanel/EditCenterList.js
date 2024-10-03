@@ -10,7 +10,7 @@ const EditCenterList = () => {
   useEffect(() => {
     const fetchCenters = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/institution');
+        const response = await axios.get('http://89.169.150.251:8081/institution');
         setCenters(response.data);
       } catch (error) {
         console.error('Ошибка при получении данных о центрах:', error);

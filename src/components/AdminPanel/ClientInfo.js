@@ -10,7 +10,7 @@ function ClientInfo() {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/user'); 
+        const response = await axios.get('http://89.169.150.251:8081/user');
         console.log(response.data); // Запрос всех пользователей
         setClients(response.data); // Сохраняем пользователей в состояние
       } catch (error) {
@@ -28,7 +28,7 @@ function ClientInfo() {
 
     console.log('Deleting client with ID:', id); // Логируем ID клиента
     try {
-        await axios.delete(`http://localhost:8081/user/${id}`); // DELETE запрос
+        await axios.delete(`http://89.169.150.251:8081/user/${id}`); // DELETE запрос
         setClients(clients.filter(client => client.userId !== id));  // Обновляем состояние
         alert('Клиент успешно удален.');
     } catch (error) {

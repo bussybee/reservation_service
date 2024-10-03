@@ -19,7 +19,7 @@ function EditCenters() {
     useEffect(() => {
         const fetchCenterData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/institution/${id}`);
+                const response = await axios.get(`http://89.169.150.251:8081/institution/${id}`);
                 setCenterData({
                     ...response.data,
                     services: response.data.services || [], // гарантируем, что services — это массив
@@ -52,12 +52,12 @@ function EditCenters() {
                   duration: parseFloat(newService.duration),
               };
   
-              const response = await axios.post("http://localhost:8081/course", courseData);
+              const response = await axios.post("http://89.169.150.251:8081/course", courseData);
   
               if (response.status === 201) {
                 alert('Услуга успешно добавлена!');
                 // Обновите данные центра
-                const updatedCenterResponse = await axios.get(`http://localhost:8081/institution/${id}`);
+                const updatedCenterResponse = await axios.get(`http://89.169.150.251:8081/institution/${id}`);
                 setCenterData(updatedCenterResponse.data);
                 setNewService({ courseName: '', startTime: '', duration: '' });
             } else {
