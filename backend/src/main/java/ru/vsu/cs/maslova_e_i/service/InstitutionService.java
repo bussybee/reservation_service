@@ -140,4 +140,8 @@ public class InstitutionService {
     public List<InstitutionDTO> getAllInstitutions() {
         return institutionRepository.findAll().stream().map(institutionMapper::toDto).toList();
     }
+
+    public void deleteById(Long id) {
+        institutionRepository.deleteById(id);
+    }
 }

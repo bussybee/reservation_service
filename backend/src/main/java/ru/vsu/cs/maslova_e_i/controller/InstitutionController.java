@@ -51,6 +51,12 @@ public class InstitutionController {
         return new ResponseEntity<>(service.getInstitutionById(id), HttpStatus.OK);
     }
 
+    @DeleteMapping("/institution/{id}")
+    public ResponseEntity<Void> deleteInstitutionById(@PathVariable Long id) {
+        service.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @GetMapping("/institution")
     public ResponseEntity<List<InstitutionDTO>> getAllInstitutions() {
         return new ResponseEntity<>(service.getAllInstitutions(), HttpStatus.OK);
