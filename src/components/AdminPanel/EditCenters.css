@@ -1,0 +1,90 @@
+/* EditCenters.css */
+
+.edit-center-container {
+    padding: 30px;
+    background-color: #f9f9f9; /* Светлый фон для контраста */
+    border-radius: 10px; /* Закругленные углы */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Нежная тень */
+    max-width: 600px; /* Максимальная ширина */
+    margin: 20px auto; /* Центрирование */
+}
+
+.edit-center-header {
+    font-size: 28px; /* Увеличенный размер заголовка */
+    margin-bottom: 20px; /* Отступ снизу */
+    color: #333; /* Темно-серый цвет для текста */
+}
+
+.edit-center-form {
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение элементов */
+}
+
+.edit-center-label {
+    font-weight: bold; /* Жирный шрифт для меток */
+    margin-bottom: 5px; /* Отступ снизу для меток */
+    color: #555; /* Цвет меток */
+}
+
+.edit-center-input, .edit-center-select {
+    display: block;
+    margin-bottom: 20px; /* Увеличенный отступ для визуальной разделенности */
+    padding: 12px 15px; /* Увеличенные отступы внутри полей */
+    width: 100%;
+    border: 1px solid #ddd; /* Светлая граница */
+    border-radius: 5px; /* Закругленные углы */
+    font-size: 16px; /* Размер шрифта */
+    transition: border-color 0.3s; /* Плавный переход цвета границы */
+}
+
+.edit-center-input:focus, .edit-center-select:focus {
+    border-color: #4CAF50; /* Зеленая граница при фокусе */
+    outline: none; /* Убираем стандартный контур */
+}
+
+.edit-center-button {
+    padding: 12px 20px; /* Увеличенные отступы */
+    background-color: #4CAF50; /* Основной цвет кнопки */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Закругленные углы кнопки */
+    cursor: pointer;
+    font-size: 16px; /* Размер шрифта для кнопки */
+    transition: background-color 0.3s; /* Плавный переход фона кнопки */
+}
+
+.edit-center-button:hover {
+    background-color: #45a049; /* Цвет при наведении */
+}
+
+.existing-services-container {
+    margin-top: 30px; /* Отступ сверху для разделения секций */
+}
+
+.existing-services-header {
+    font-size: 22px; /* Размер заголовка для существующих услуг */
+    color: #333; /* Темно-серый цвет для текста */
+}
+
+.existing-services-list {
+    list-style: none; /* Убираем маркеры списка */
+    padding: 0; /* Убираем внутренние отступы */
+}
+
+.existing-service-item {
+    background-color: #fff; /* Белый фон для каждого элемента */
+    padding: 15px; /* Отступы внутри элемента */
+    border: 1px solid #ddd; /* Граница элемента */
+    border-radius: 5px; /* Закругленные углы */
+    margin-bottom: 10px; /* Отступ снизу между элементами */
+    transition: transform 0.3s; /* Плавный переход для эффекта наведения */
+}
+
+.existing-service-item:hover {
+    transform: translateY(-2px); /* Эффект поднятия при наведении */
+}
+
+.existing-service-description {
+    margin: 5px 0; /* Убираем отступы между параграфами */
+    color: #555; /* Цвет текста для описания услуги */
+}

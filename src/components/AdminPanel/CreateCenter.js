@@ -6,11 +6,11 @@ const CreateCenter = () => {
   const [newCenter, setNewCenter] = useState({
     name: '',
     address: '',
-    photoUrl: '', // Изменяем название переменной на photoUrl
-    category: '',
+    image: '', // Поле для URL фото
+    type: '',
   });
 
-  const categories = ['Спа центры', 'Фитнес центры', 'Салоны красоты'];
+  const categories = ['SPA_SALON', 'FITNESS', 'BEAUTY_SALON'];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +19,6 @@ const CreateCenter = () => {
       [name]: value,
     }));
   };
-
 
   const handleAddCenter = async (e) => {
     e.preventDefault();
@@ -36,28 +35,25 @@ const CreateCenter = () => {
                 }
             });
 
-            if (response.status === 201) {
-                alert('Центр успешно создан!');
-
-                // Сбрасываем форму
-                setNewCenter({
-                    name: '',
-                    address: '',
-                    photoUrl: '',
-                    category: '',
-                });
-            } else {
-                alert('Ошибка при создании центра.');
-            }
-        } catch (error) {
-            console.error('Ошибка при создании центра:', error);
-            alert('Произошла ошибка при создании центра.');
+        if (response.status === 201) {
+          alert('Центр успешно создан!');
+          setNewCenter({
+            name: '',
+            address: '',
+            image: '',
+            type: '',
+          });
+        } else {
+          alert('Ошибка при создании центра.');
         }
+      } catch (error) {
+        console.error('Ошибка при создании центра:', error);
+        alert('Произошла ошибка при создании центра.');
+      }
     } else {
-        alert('Пожалуйста, заполните все поля.');
+      alert('Пожалуйста, заполните все поля.');
     }
-};
-
+  };
 
   return (
     <div className={styles.createCenterContainer}>
@@ -91,16 +87,16 @@ const CreateCenter = () => {
           <div className={styles.formGroup}>
             <label>Категория</label>
             <select
-              name="category"
-              value={newCenter.category}
+              name="type"
+              value={newCenter.type}
               onChange={handleInputChange}
               className={styles.select}
               required
             >
               <option value="">Выберите категорию</option>
-              {categories.map((category, index) => (
-                <option key={index} value={category}>
-                  {category}
+              {categories.map((type, index) => (
+                <option key={index} value={type}>
+                  {type}
                 </option>
               ))}
             </select>
@@ -109,15 +105,15 @@ const CreateCenter = () => {
             <label>Ссылка на фото</label>
             <input
               type="text"
-              name="photoUrl"
-              value={newCenter.photoUrl}
+              name="image"
+              value={newCenter.image}
               onChange={handleInputChange}
               className={styles.input}
               required
               placeholder="Введите URL фото центра"
             />
-            {newCenter.photoUrl && (
-              <img src={newCenter.photoUrl} alt="Фото центра" className={styles.previewImage} />
+            {newCenter.image && (
+              <img src={newCenter.image} alt="Фото центра" className={styles.previewImage} />
             )}
           </div>
           <button type="submit" className={styles.submitButton}>

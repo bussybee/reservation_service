@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import './FitnessPage.css';
+import './BeautySalonPagee.css';
 
-function FitnessPage() {
-    const { id } = useParams(); // Получаем ID центра из URL
-    const [centerData, setCenterData] = useState(null); // Данные о центре
-    const [services, setServices] = useState([]); // Услуги центра
+function BeautySalonPage() {
+    const { id } = useParams(); // Получаем ID салона красоты из URL
+    const [centerData, setCenterData] = useState(null); // Данные о салоне
+    const [services, setServices] = useState([]); // Услуги салона
     const [userRating, setUserRating] = useState(0);
     const [userComment, setUserComment] = useState('');
     const [comments, setComments] = useState([]);
@@ -15,12 +15,12 @@ function FitnessPage() {
     useEffect(() => {
         const fetchCenterData = async () => {
             try {
-                const response = await axios.get('http://89.169.150.251:8081/institution/{centerId}'); // Замените {centerId} на реальный ID центра
+                const response = await axios.get(`http://localhost:8081/institution/${id}`);
                 setCenterData(response.data);
                 setComments(response.data.comments || []);
-                setServices(response.data.services || []); // Предполагаем, что услуги приходят с центром
+                setServices(response.data.services || []); // Предполагаем, что услуги приходят с салоном
             } catch (error) {
-                console.error('Ошибка при получении данных о центре:', error);
+                console.error('Ошибка при получении данных о салоне красоты:', error);
             }
         };
 
@@ -33,7 +33,7 @@ function FitnessPage() {
             institutionName: centerData.name,  // не обязательно на сервере, но полезно для истории
             courseName: courseName,  // имя курса
             courseId: serviceId,  // id курса, который вы бронируете
-            userId,  // id пользователя, который делает бронирование, заменить на актуальный
+            userId,  // id пользователя, который делает бронирование
             clientname: localStorage.getItem('clientName'),
             email: localStorage.getItem('email'),
             phone: localStorage.getItem('phone'),
@@ -42,25 +42,24 @@ function FitnessPage() {
         };
     
         try {
-            // Отправка нового комментария на сервер
-            await axios.post(`http://89.169.150.251:8081/institution/${centerData.id}/comment`, newComment);
-            setComments([...comments, newComment]); // Обновляем состояние комментариев
-            // Сбросить состояние
-            setUserComment('');
-            setUserRating(0);
+            const response = await axios.post('http://localhost:8081/reservations', reservationData);
+            if (response.status === 201) {
+                alert('Вы успешно записались на услугу!');
+            } else {
+                alert('Ошибка при бронировании');
+            }
         } catch (error) {
             console.error('Ошибка при бронировании:', error);
             alert('Произошла ошибка при бронировании');
         }
     };
-    
 
     if (!centerData) {
         return <div>Загрузка...</div>;
     }
 
     return (
-        <div className="fitness-page">
+        <div className="beauty-salon-page">
             <div className="center-details">
                 <div className="details">
                     <h1 className="center-name">{centerData.name}</h1>
@@ -74,7 +73,7 @@ function FitnessPage() {
 
             {services.length > 0 ? (
                 <div className="services-section">
-                    <h2>Услуги центра</h2>
+                    <h2>Услуги салона</h2>
                     <ul>
                         {services.map(service => (
                             <li key={service.id}>
@@ -86,7 +85,7 @@ function FitnessPage() {
                 </div>
             ) : (
                 <div className="no-services">
-                    <h3>Центр временно не работает, приносим извинения за неудобства</h3>
+                    <h3>Салон временно не работает, приносим извинения за неудобства</h3>
                 </div>
             )}
 
@@ -124,4 +123,4 @@ function FitnessPage() {
     );
 }
 
-export default FitnessPage;
+export default BeautySalonPage;

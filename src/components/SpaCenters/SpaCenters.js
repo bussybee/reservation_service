@@ -26,9 +26,9 @@ function SpaCenters() {
         fetchSpaCenters(); // Вызов функции для получения данных
     }, []); // Пустой массив зависимостей, чтобы вызов произошел только один раз
 
-    const handleCenterDetailClick = (centerId) => {
+    const handleCenterDetailClick = (id) => {
         // Функция для навигации на страницу деталей спа центра
-        navigate(`/spaCenter/${centerId}`);
+        navigate(`/spaCenterPage/${id}`);
     };
 
     // Проверка состояния загрузки и ошибок

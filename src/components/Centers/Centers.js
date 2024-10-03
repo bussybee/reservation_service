@@ -1,3 +1,4 @@
+// CentersPage.js
 import React, { useState, useEffect } from 'react';
 import './Centers.css';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,9 @@ function CentersPage() {
         'https://via.placeholder.com/1920x600?text=Slide+3',
     ];
 
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const navigate = useNavigate();
+
     const nextSlide = () => {
         const nextIndex = currentSlide === slides.length - 1 ? 0 : currentSlide + 1;
         setCurrentSlide(nextIndex);
@@ -18,10 +22,6 @@ function CentersPage() {
         const prevIndex = currentSlide === 0 ? slides.length - 1 : currentSlide - 1;
         setCurrentSlide(prevIndex);
     };
-
-    const [currentSlide, setCurrentSlide] = useState(0);
-
-    const navigate = useNavigate();
 
     const handleFitnessButtonClick = () => {
         navigate("/fitness");
@@ -35,19 +35,18 @@ function CentersPage() {
         navigate("/beautySalons");
     };
 
-
     return (
         <div className="centers-page">
             <div className="carousel-container">
                 <div className="carousel">
-                    <div className="slides" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+                    <div className="carousel-slides" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
                         {slides.map((slide, index) => (
-                            <div key={index} className="slide" style={{ backgroundImage: `url(${slide})` }}></div>
+                            <div key={index} className="carousel-slide" style={{ backgroundImage: `url(${slide})` }}></div>
                         ))}
                     </div>
                 </div>
-                <button className="prev" onClick={prevSlide}>{"<"}</button>
-                <button className="next" onClick={nextSlide}>{">"}</button>
+                <button className="carousel-prev" onClick={prevSlide}>{"<"}</button>
+                <button className="carousel-next" onClick={nextSlide}>{">"}</button>
             </div>
 
             <h1 className="category-header">Выберите Категорию</h1>
@@ -60,13 +59,11 @@ function CentersPage() {
 
             <div className="content-wrapper">
                 <div className="text-and-button">
-                    <button className="transparent-button"onClick={handleSpaButtonClick}>Спа-центры Воронежа</button>
+                    <button className="transparent-button" onClick={handleSpaButtonClick}>Спа-центры Воронежа</button>
                 </div>
-
             </div>
 
             <div className="content-wrapper">
-
                 <div className="text-and-button">
                     <button className="transparent-button" onClick={handleBsButtonClick}>Салоны красоты Воронежа</button>
                 </div>

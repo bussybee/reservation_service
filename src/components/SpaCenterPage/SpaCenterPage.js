@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import './FitnessPage.css';
+import './SpaCenterPage.css';
 
-function FitnessPage() {
+function SpaCenterPage() {
     const { id } = useParams(); // Получаем ID центра из URL
     const [centerData, setCenterData] = useState(null); // Данные о центре
     const [services, setServices] = useState([]); // Услуги центра
@@ -15,7 +15,7 @@ function FitnessPage() {
     useEffect(() => {
         const fetchCenterData = async () => {
             try {
-                const response = await axios.get('http://89.169.150.251:8081/institution/{centerId}'); // Замените {centerId} на реальный ID центра
+                const response = await axios.get(`http://localhost:8081/institution/${id}`);
                 setCenterData(response.data);
                 setComments(response.data.comments || []);
                 setServices(response.data.services || []); // Предполагаем, что услуги приходят с центром
@@ -42,25 +42,24 @@ function FitnessPage() {
         };
     
         try {
-            // Отправка нового комментария на сервер
-            await axios.post(`http://89.169.150.251:8081/institution/${centerData.id}/comment`, newComment);
-            setComments([...comments, newComment]); // Обновляем состояние комментариев
-            // Сбросить состояние
-            setUserComment('');
-            setUserRating(0);
+            const response = await axios.post('http://localhost:8081/reservations', reservationData);
+            if (response.status === 201) {
+                alert('Вы успешно записались на услугу!');
+            } else {
+                alert('Ошибка при бронировании');
+            }
         } catch (error) {
             console.error('Ошибка при бронировании:', error);
             alert('Произошла ошибка при бронировании');
         }
     };
-    
 
     if (!centerData) {
         return <div>Загрузка...</div>;
     }
 
     return (
-        <div className="fitness-page">
+        <div className="spa-center-page">
             <div className="center-details">
                 <div className="details">
                     <h1 className="center-name">{centerData.name}</h1>
@@ -124,4 +123,4 @@ function FitnessPage() {
     );
 }
 
-export default FitnessPage;
+export default SpaCenterPage;

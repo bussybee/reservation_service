@@ -1,166 +1,132 @@
-import React, { useState } from 'react';
-import styles from './AdminPanel.module.css';
+// EditCenters.js
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import './EditCenters.css';
 
 function EditCenters() {
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [centers, setCenters] = useState([]);
-  const [newCenter, setNewCenter] = useState({
-    name: '',
-    address: '',
-    photo: null,
-    category: '',
-    reviews: [],
-  });
+    const { id } = useParams(); // Получаем ID центра из URL
+    const [centerData, setCenterData] = useState(null);
+    const [newService, setNewService] = useState({
+        courseName: '',
+        startTime: '',
+        duration: ''
+    });
+    const navigate = useNavigate();
 
-  const categories = ['Спа центры', 'Фитнес центры', 'Салоны красоты'];
 
-  const handleCategoryChange = (category) => {
-    setSelectedCategory(category);
-    // Логика загрузки центров выбранной категории (например, запрос к API)
-  };
+    useEffect(() => {
+        const fetchCenterData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8081/institution/${id}`);
+                setCenterData({
+                    ...response.data,
+                    services: response.data.services || [], // гарантируем, что services — это массив
+                });
+            } catch (error) {
+                console.error('Ошибка при получении данных о центре:', error);
+            }
+        };
 
-  const editCenter = (centerId) => {
-    // Логика редактирования центра
-    console.log('Редактирование центра:', centerId);
-  };
+        fetchCenterData();
+    }, [id]);
 
-  const deleteReview = (centerId, reviewId) => {
-    // Логика удаления отзыва
-    console.log(`Удаление отзыва ${reviewId} в центре ${centerId}`);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewCenter((prevCenter) => ({
-      ...prevCenter,
-      [name]: value,
-    }));
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setNewCenter((prevCenter) => ({
-          ...prevCenter,
-          photo: reader.result,
+    const handleServiceChange = (e) => {
+        const { name, value } = e.target;
+        setNewService((prevService) => ({
+            ...prevService,
+            [name]: value,
         }));
-      };
-      reader.readAsDataURL(file);
-    }
+    };
+
+    const handleAddService = async (e) => {
+      e.preventDefault();
+      if (newService.courseName && newService.startTime && newService.duration) {
+          try {
+              const startTimeFormatted = newService.startTime.replace('T', ' ') + ':00';
+              const courseData = {
+                  courseName: newService.courseName,
+                  institutionId: id,
+                  startTime: startTimeFormatted,
+                  duration: parseFloat(newService.duration),
+              };
+  
+              const response = await axios.post("http://localhost:8081/course", courseData);
+  
+              if (response.status === 201) {
+                alert('Услуга успешно добавлена!');
+                // Обновите данные центра
+                const updatedCenterResponse = await axios.get(`http://localhost:8081/institution/${id}`);
+                setCenterData(updatedCenterResponse.data);
+                setNewService({ courseName: '', startTime: '', duration: '' });
+            } else {
+                  alert('Ошибка при создании услуги.');
+              }
+          } catch (error) {
+              console.error('Ошибка при создании услуги:', error);
+              alert('Произошла ошибка при создании услуги.');
+          }
+      } else {
+          alert('Пожалуйста, заполните все поля.');
+      }
   };
+  
 
-  const handleAddCenter = (e) => {
-    e.preventDefault();
-    if (newCenter.name && newCenter.address && newCenter.category) {
-      setCenters((prevCenters) => [...prevCenters, newCenter]);
-      setNewCenter({
-        name: '',
-        address: '',
-        photo: null,
-        category: '',
-        reviews: [],
-      });
-      alert('Центр успешно создан!');
-    } else {
-      alert('Пожалуйста, заполните все поля.');
+    if (!centerData) {
+        return <div>Загрузка...</div>;
     }
-  };
 
-  return (
-    <div className={styles.editCenters}>
-      <h3>Редактировать центры</h3>
-      
-      {/* Выбор категории */}
-      <div className={styles.categories}>
-        {categories.map((category, index) => (
-          <button
-            key={index}
-            onClick={() => handleCategoryChange(category)}
-            className={selectedCategory === category ? styles.active : ''}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
+    return (
+        <div className="edit-center-container">
+            <h2 className="edit-center-header">Редактирование центра: {centerData.name}</h2>
+            <form className="edit-center-form" onSubmit={handleAddService}>
+                <label className="edit-center-label">Название услуги</label>
+                <input
+                    className="edit-center-input"
+                    type="text"
+                    name="courseName"
+                    value={newService.courseName}
+                    onChange={handleServiceChange}
+                    required
+                />
+                <label className="edit-center-label">Дата и время начала</label>
+                <input
+                    className="edit-center-input"
+                    type="datetime-local"
+                    name="startTime"
+                    value={newService.startTime}
+                    onChange={handleServiceChange}
+                    required
+                />
+                <label className="edit-center-label">Продолжительность (в часах)</label>
+                <input
+                    className="edit-center-input"
+                    type="number"
+                    name="duration"
+                    value={newService.duration}
+                    onChange={handleServiceChange}
+                    required
+                />
+                <button className="edit-center-button" type="submit">Добавить услугу</button>
+            </form>
 
-      {/* Список центров */}
-      <div className={styles.centersList}>
-        {centers
-          .filter((center) => center.category === selectedCategory)
-          .map((center) => (
-            <div key={center.name}>
-              <h4>{center.name}</h4>
-              <p><strong>Адрес:</strong> {center.address}</p>
-              {center.photo && <img src={center.photo} alt="Фото центра" />}
-              <button onClick={() => editCenter(center.name)}>Редактировать центр</button>
-              <ul>
-                {center.reviews.map((review, index) => (
-                  <li key={index}>
-                    <p><strong>Отзыв:</strong> {review.comment}</p>
-                    <button onClick={() => deleteReview(center.name, review.id)}>Удалить отзыв</button>
-                  </li>
-                ))}
-              </ul>
+            <div className="existing-services-container">
+                <h3 className="existing-services-header">Существующие услуги</h3>
+                {centerData.services && centerData.services.length > 0 ? (
+                    <ul className="existing-services-list">
+                        {centerData.services.map((service, index) => (
+                            <li className="existing-service-item" key={index}>
+                                {service.courseName} - {service.startTime} - {service.duration} ч.
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>Услуг пока нет.</p>
+                )}
             </div>
-          ))}
-      </div>
-
-      {/* Форма для создания нового центра */}
-      <div className={styles.createCenter}>
-        <h4>Создать новый центр</h4>
-        <form onSubmit={handleAddCenter} className={styles.form}>
-          <div>
-            <label>Название центра</label>
-            <input
-              type="text"
-              name="name"
-              value={newCenter.name}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Адрес</label>
-            <input
-              type="text"
-              name="address"
-              value={newCenter.address}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Категория</label>
-            <select
-              name="category"
-              value={newCenter.category}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="">Выберите категорию</option>
-              {categories.map((category, index) => (
-                <option key={index} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label>Фото</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-            />
-            {newCenter.photo && <img src={newCenter.photo} alt="Фото центра" style={{ width: '100px' }} />}
-          </div>
-          <button type="submit" className={styles.submitButton}>Создать центр</button>
-        </form>
-      </div>
-    </div>
-  );
+        </div>
+    );
 }
 
 export default EditCenters;

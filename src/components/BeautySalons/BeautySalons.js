@@ -32,9 +32,9 @@ function BeautySalons() {
         fetchBeautySalons(); // Вызов функции для получения данных
     }, []); // Пустой массив зависимостей, чтобы вызов произошел только один раз
 
-    const handleSalonDetailClick = (salonId) => {
-        // Функция для навигации на страницу деталей салона
-        navigate(`/beautySalon/${salonId}`);
+    const handleSalonDetailClick = (id) => {
+        console.log("pressed ", id);
+        navigate(`/beautySalonPage/${id}`);
     };
 
     // Проверка состояния загрузки и ошибок

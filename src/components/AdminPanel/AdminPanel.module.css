@@ -162,16 +162,22 @@
 
 /* Styles for BookingRequests */
 /* Styles for BookingRequests */
+
 .bookingRequests {
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
   background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 .bookingRequests h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
 }
 
 .bookingRequests ul {
@@ -181,75 +187,121 @@
 }
 
 .bookingRequests li {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  background-color: #fafafa;
 }
 
 .bookingRequests li:hover {
-  background-color: #f0f0f0;
+  background-color: #f9f9f9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.05);
+}
+
+.bookingRequests li p {
+  margin: 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.bookingRequests li p strong {
+  color: #333;
+  font-weight: 600;
 }
 
 .bookingRequests button {
-  margin-left: 10px;
-  padding: 5px 10px;
+  padding: 10px 20px;
+  font-size: 16px;
   cursor: pointer;
-  background-color: #2196f3;
+  background-color: #4CAF50;
   color: #fff;
   border: none;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
 .bookingRequests button:hover {
-  background-color: #0d8bf0;
+  background-color: #45a049;
 }
+
+.bookingRequests button.reject {
+  background-color: #f44336;
+}
+
+.bookingRequests button.reject:hover {
+  background-color: #d32f2f;
+}
+
+.bookingRequests .booking-request-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bookingRequests .booking-request-item:last-child {
+  margin-bottom: 0;
+}
+  
 
 /* Styles for ClientInfo */
 .clientInfo {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: #fff; /* Белый фон */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */
 }
 
 .clientInfo h3 {
   font-size: 20px;
   margin-bottom: 10px;
+  color: #333; /* Темный цвет для заголовка */
+  border-bottom: 2px solid #007bff; /* Подчеркивание заголовка */
 }
 
 .clientInfo ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+  list-style-type: none; /* Убираем маркеры списка */
+  padding: 0; /* Убираем внутренние отступы */
 }
 
-.clientInfo li {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
+.clientItem {
+  border: 1px solid #ddd; /* Светлая граница */
+  border-radius: 5px; /* Закругленные углы */
+  padding: 15px; /* Отступы внутри элемента */
+  margin-bottom: 10px; /* Отступ между элементами */
+  transition: background-color 0.3s; /* Плавный переход для фона */
 }
 
-.clientInfo li:hover {
-  background-color: #f0f0f0;
+.clientItem:hover {
+  background-color: #f0f0f0; /* Цвет при наведении */
 }
 
-.clientInfo button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  cursor: pointer;
-  background-color: #f44336;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+.clientInfo p {
+  margin: 5px 0; /* Убираем отступы между параграфами */
+  color: #555; /* Цвет текста */
 }
 
-.clientInfo button:hover {
-  background-color: #d32f2f;
+.deleteButton {
+  padding: 10px 15px; /* Отступы кнопки */
+  background-color: #f44336; /* Красный цвет для кнопки удаления */
+  color: white; /* Цвет текста */
+  border: none; /* Убираем границу */
+  border-radius: 5px; /* Закругленные углы */
+  cursor: pointer; /* Курсор при наведении */
+  transition: background-color 0.3s; /* Плавный переход фона */
 }
+
+.deleteButton:hover {
+  background-color: #d32f2f; /* Темнее при наведении */
+}
+
 
 /* Styles for EditCenters */
 .editCenters {

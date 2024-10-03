@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './HistoryPage.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function HistoryPage() {
     const navigate = useNavigate();
@@ -15,24 +16,15 @@ function HistoryPage() {
             try {
                 const response = await fetch(`http://89.169.150.251:8081/reservations/user/${userId}`);
                 
-                if (!response.ok) {
-                    throw new Error('Ошибка при загрузке истории бронирований');
-                }
-
-                const data = await response.json();
-                console.log("Полученные данные:", data); // Логируем данные для проверки
-
-                // Проверяем, что данные представляют собой массив
-                if (Array.isArray(data)) {
-                    setReservations(data); // Устанавливаем полученные данные в состояние
+                if (response.status === 200) {
+                    setReservations(response.data);
                 } else {
-                    console.error('Данные не содержат массив reservations:', data);
-                    setError('Не удалось получить историю бронирований.');
+                    throw new Error('Ошибка при загрузке истории бронирований');
                 }
 
                 setLoading(false);
             } catch (err) {
-                console.error(err);
+                console.error('Ошибка:', err);
                 setError(err.message);
                 setLoading(false);
             }
@@ -70,13 +62,9 @@ function HistoryPage() {
                         <div key={index} className="history-center-info">
                             <div className="center-info">
                                 <h2 className="center-name">{reservation.institutionName}</h2>
-                                <p className="center-client-name">Клиент: {reservation.clientName}</p>
-                                <p className="center-email">Email клиента: {reservation.email}</p>
-                                <p className="center-phone">Телефон клиента: {reservation.phone}</p>
-                                <p className="center-course">Название курса: {reservation.courseName}</p>
+                                <p className="center-course">Услуга: {reservation.courseName}</p>
                                 <p className="center-status">Статус: {reservation.approved ? 'Одобрено' : 'Не одобрено'}</p>
-                                <p className="center-created-at">Дата создания: {reservation.createdAt}</p>
-                                <a href={`/fitnessPage/${reservation.courseName}`} className="center-link">Подробнее</a>
+                                <p className="center-created-at">Дата бронирования: {reservation.createdAt}</p>
                             </div>
                         </div>
                     ))

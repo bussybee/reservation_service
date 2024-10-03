@@ -1,0 +1,89 @@
+/* Общие стили для контейнера */
+.edit-center-list {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Заголовок страницы */
+.edit-center-list h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* Стили для списка центров */
+.edit-center-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.edit-center-list li {
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease;
+}
+
+.edit-center-list li:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Название и адрес центра */
+.edit-center-list p {
+    margin: 0;
+    font-size: 18px;
+    color: #555;
+}
+
+.edit-center-list p span {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Кнопка для редактирования */
+.edit-center-list button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 16px;
+}
+
+.edit-center-list button:hover {
+    background-color: #0056b3;
+}
+
+.edit-center-list button:active {
+    background-color: #004494;
+}
+
+/* Адаптивный дизайн */
+@media (max-width: 768px) {
+    .edit-center-list {
+        padding: 15px;
+    }
+
+    .edit-center-list li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .edit-center-list button {
+        width: 100%;
+        margin-top: 10px;
+    }
+}

@@ -28,8 +28,12 @@ const AdminPanel = () => {
   };
 
   // Переход на страницу создания нового центра
-  const handleEditCentersClick = () => {
+  const handleCreateCentersClick = () => {
     navigate('/createCenter');
+  };
+
+  const handleEditCentersClick = () => {
+    navigate('/editCenterList'); // Перенаправляем на страницу списка центров для редактирования
   };
 
   // Функция для открытия модального окна
@@ -130,13 +134,16 @@ const AdminPanel = () => {
         <div className={styles.adminContent}>
           <div className={styles.adminMenu}>
             <ul>
-              <li className={activeTab === 'bookingRequests' ? styles.active : ''} onClick={() => handleTabClick('bookingRequests')}>
+            <li className={activeTab === 'bookingRequests' ? styles.active : ''} onClick={() => handleTabClick('bookingRequests')}>
                 Заявки на бронирование
               </li>
               <li className={activeTab === 'clientInfo' ? styles.active : ''} onClick={() => handleTabClick('clientInfo')}>
                 Информация о клиентах
               </li>
-              <li className={activeTab === 'editCenters' ? styles.active : ''} onClick={handleEditCentersClick}>
+              <li onClick={handleCreateCentersClick}>
+                Создать центр
+              </li>
+              <li onClick={handleEditCentersClick}>
                 Редактировать центры
               </li>
             </ul>
