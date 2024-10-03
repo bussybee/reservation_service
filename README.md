@@ -34,4 +34,10 @@
 - [frontend](https://github.com/bussybee/reservation_service/tree/frontend)
 
 ## Ссылка на проект
-- http://89.169.150.251/
+http://89.169.150.251/
+  
+Учетные данные:
+
+Администратор:
+- Email: roma81187@gmail.com
+- Пароль: 12345678
