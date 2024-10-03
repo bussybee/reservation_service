@@ -18,6 +18,7 @@ import ru.vsu.cs.maslova_e_i.util.InstitutionType;
 import ru.vsu.cs.maslova_e_i.util.mapper.CommentMapper;
 import ru.vsu.cs.maslova_e_i.util.mapper.InstitutionMapper;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,6 +62,7 @@ public class InstitutionService {
         Comment entity = commentMapper.toEntity(newComment);
         entity.setInstitution(institution);
         entity.setAuthor(author);
+        entity.setCreatedOn(LocalDateTime.now());
         CommentDTO commentDTO = commentMapper.toDto(commentRepository.save(entity));
         updateRating(institutionId);
         return commentDTO;
@@ -89,10 +91,19 @@ public class InstitutionService {
 
     private void updateRating(Long id) {
         List<Comment> allCommentsForInstitution = commentRepository.findAllByInstitutionId(id);
+        if (allCommentsForInstitution == null || allCommentsForInstitution.isEmpty()) {
+            Institution institution = institutionRepository.findById(id)
+                    .orElseThrow(() -> new ObjectNotFoundException("Institution", id));
+            institution.setRating(0.0);
+            institutionRepository.save(institution);
+            return;
+        }
         double rating = allCommentsForInstitution.stream()
+                .filter(comment -> comment.getRating() != null)
                 .mapToDouble(Comment::getRating)
                 .average()
                 .orElse(0.0);
+
         Institution institution = institutionRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Institution", id));
         institution.setRating(rating);
