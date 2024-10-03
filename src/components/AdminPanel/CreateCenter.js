@@ -27,8 +27,8 @@ const CreateCenter = () => {
             const response = await axios.post("http://89.169.150.251:8081/institution", {
                 name: newCenter.name,
                 address: newCenter.address,
-                category: newCenter.type,
-                photo: newCenter.image, // URL изображения
+                type: newCenter.type,
+                image: newCenter.image, // URL изображения
             }, {
                 headers: {
                     "Content-Type": "application/json",
