@@ -22,13 +22,13 @@ const CreateCenter = () => {
 
   const handleAddCenter = async (e) => {
     e.preventDefault();
-    if (newCenter.name && newCenter.address && newCenter.category && newCenter.photoUrl) {
+    if (newCenter.name && newCenter.address && newCenter.type && newCenter.image) {
         try {
             const response = await axios.post("http://89.169.150.251:8081/institution", {
                 name: newCenter.name,
                 address: newCenter.address,
-                category: newCenter.category,
-                photo: newCenter.photoUrl, // URL изображения
+                category: newCenter.type,
+                photo: newCenter.image, // URL изображения
             }, {
                 headers: {
                     "Content-Type": "application/json",
