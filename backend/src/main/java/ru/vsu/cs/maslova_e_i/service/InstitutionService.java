@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.vsu.cs.maslova_e_i.dto.CommentDTO;
+import ru.vsu.cs.maslova_e_i.dto.CourseDTO;
 import ru.vsu.cs.maslova_e_i.dto.InstitutionDTO;
 import ru.vsu.cs.maslova_e_i.model.Comment;
 import ru.vsu.cs.maslova_e_i.model.Institution;
@@ -30,13 +31,20 @@ public class InstitutionService {
     InstitutionMapper institutionMapper;
     CommentMapper commentMapper;
     UserRepository userRepository;
+    CourseService courseService;
 
     public InstitutionDTO createInstitution(InstitutionDTO institutionDTO) {
         return institutionMapper.toDto(institutionRepository.save(institutionMapper.toEntity(institutionDTO)));
     }
 
     public InstitutionDTO getInstitutionById(Long id) {
-        return institutionMapper.toDto(institutionRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Institution", id)));
+        Institution institution = institutionRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Institution", id));
+
+        List<CourseDTO> services = courseService.getCoursesByInstitution(id);
+        InstitutionDTO institutionDTO = institutionMapper.toDto(institution);
+        institutionDTO.setServices(services);
+        return institutionDTO;
     }
 
     public List<InstitutionDTO> getInstitutionsByType(InstitutionType type) {
@@ -116,5 +124,9 @@ public class InstitutionService {
         } else {
             return List.of();
         }
+    }
+
+    public List<InstitutionDTO> getAllInstitutions() {
+        return institutionRepository.findAll().stream().map(institutionMapper::toDto).toList();
     }
 }

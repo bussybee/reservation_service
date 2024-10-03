@@ -51,6 +51,11 @@ public class InstitutionController {
         return new ResponseEntity<>(service.getInstitutionById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/institution")
+    public ResponseEntity<List<InstitutionDTO>> getAllInstitutions() {
+        return new ResponseEntity<>(service.getAllInstitutions(), HttpStatus.OK);
+    }
+
     @PostMapping("/institution/{id}/comment")
     @Operation(summary = "Добавить отзыв к учреждению")
     public ResponseEntity<CommentDTO> addComment(@RequestBody CommentDTO newComment, @PathVariable Long id) {

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import ru.vsu.cs.maslova_e_i.util.InstitutionType;
 
+import java.util.List;
+
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class InstitutionDTO {
@@ -15,5 +17,5 @@ public class InstitutionDTO {
     Double rating;
     String image;
     InstitutionType type;
-
+    List<CourseDTO> services;
 }

@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ReservationDTO {
+    Long id;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Timestamp
@@ -28,5 +29,5 @@ public class ReservationDTO {
 
     Boolean approved;
 
-    Boolean competed;
+    Boolean completed;
 }

@@ -33,5 +33,11 @@ public class Reservation {
 
     Boolean approved;
 
-    Boolean competed;
+    Boolean completed;
+
+    public void checkAndSetCompleted() {
+        if (Boolean.TRUE.equals(this.approved) && LocalDateTime.now().isAfter(course.getEndTime())) {
+            this.completed = true;
+        }
+    }
 }

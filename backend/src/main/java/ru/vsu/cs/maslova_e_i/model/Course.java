@@ -31,4 +31,7 @@ public class Course {
 
     Double duration;
 
+    public LocalDateTime getEndTime() {
+        return startTime.plusHours(duration.longValue());
+    }
 }
