@@ -1,12 +1,18 @@
+.app-container {
+  padding-top: 60px; / Отступ под шапкой /
+min-height: calc(100vh - 60px); / Высота страницы с учетом шапки */
+background-color: #f8f8f8;
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f8f8f8;
-  }
-  
-  .container {
+}
+
+.container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  }
+}
   
   

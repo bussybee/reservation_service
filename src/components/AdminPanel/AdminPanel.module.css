@@ -1,5 +1,6 @@
 .adminPanelContainer {
-  height: 100vh;
+  margin-top: 60px;
+  height: calc(100vh - 60px);
   width: 100vw;
   background-image: url('../FavoritesPage/img.png');
   background-size: cover;
@@ -9,7 +10,9 @@
   color: #000000;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 20px;
+  overflow-y: auto;
 }
 
 .adminPanel {
@@ -21,6 +24,7 @@
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+  position: relative;
 }
 
 .profileInfo {

@@ -38,32 +38,33 @@ function App() {
     <UserProvider>
     <Router>
       <div className="App">
-        <Navigation isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/centers" element={<Centers />} />
-          <Route path="/feedback" element={<Feedback />} />
-          <Route path="/fitness" element={<Fitness />} />
-          <Route path="/personalaccount" element={<PersonalAccount setIsAuthenticated={setIsAuthenticated}/>} />
-          <Route path="/registrationPage" element={<RegistrationPage setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated}/>} />
-          <Route path="/spaCenters" element={<SpaCenters />} />
-          <Route path="/beautySalons" element={<BeautySalons />} />
-          <Route path="/fitnessPage/:id" element={<FitnessPage />} /> 
-          <Route path="/beautySalonPage/:id" element={<BeautySalonPage/>}/> 
-          <Route path="/spaCenterPage/:id" element={<SpaCenterPage />} />      
-          <Route path="/booking" element={<SetApp />} />
-          <Route path="/favoritesPage" element={<FavoritesPage/>} />
-          <Route path="/historyPage" element={<HistoryPage/>} />
-          <Route path="/adminPanel" element={<AdminPanel/>} />
-          <Route path="/bookingRequests" element={<BookingRequests/>} />
-          <Route path="/clientInfo" element={<ClientInfo/>} />
-          <Route path="adminPanel/editCenters/:id" element={<EditCenters/>} />
-          <Route path="/editCenterList" element={<EditCenterList/>} />
-          <Route path="createCenter" element={<CreateCenter/>} />
-          
-        </Routes>
-      </div>
+        <Navigation isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+        <div className="app-container">
+          <Routes>
+            <Route path="/" element={<HomePage/>}/>
+            <Route path="/centers" element={<Centers/>}/>
+            <Route path="/feedback" element={<Feedback/>}/>
+            <Route path="/fitness" element={<Fitness/>}/>
+            <Route path="/personalaccount" element={<PersonalAccount setIsAuthenticated={setIsAuthenticated}/>}/>
+            <Route path="/registrationPage" element={<RegistrationPage setIsAuthenticated={setIsAuthenticated}/>}/>
+            <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated}/>}/>
+            <Route path="/spaCenters" element={<SpaCenters/>}/>
+            <Route path="/beautySalons" element={<BeautySalons/>}/>
+            <Route path="/fitnessPage/:id" element={<FitnessPage/>}/>
+            <Route path="/beautySalonPage/:id" element={<BeautySalonPage/>}/>
+            <Route path="/spaCenterPage/:id" element={<SpaCenterPage/>}/>
+            <Route path="/booking" element={<SetApp/>}/>
+            <Route path="/favoritesPage" element={<FavoritesPage/>}/>
+            <Route path="/historyPage" element={<HistoryPage/>}/>
+            <Route path="/adminPanel" element={<AdminPanel/>}/>
+            <Route path="/bookingRequests" element={<BookingRequests/>}/>
+            <Route path="/clientInfo" element={<ClientInfo/>}/>
+            <Route path="adminPanel/editCenters/:id" element={<EditCenters/>}/>
+            <Route path="/editCenterList" element={<EditCenterList/>}/>
+            <Route path="createCenter" element={<CreateCenter/>}/>
+          </Routes>
+        </div>
+        </div>
     </Router>
     </UserProvider>
   );

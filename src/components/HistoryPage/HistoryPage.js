@@ -17,7 +17,8 @@ function HistoryPage() {
                 const response = await fetch(`http://89.169.150.251:8081/reservations/user/${userId}`);
                 
                 if (response.status === 200) {
-                    setReservations(response.data);
+                    const data = await response.json(); // Получаем данные из ответа
+                    setReservations(data || []);
                 } else {
                     throw new Error('Ошибка при загрузке истории бронирований');
                 }
