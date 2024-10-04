@@ -30,6 +30,22 @@ function FitnessPage() {
         fetchCenterData();
     }, [id]);
 
+    // Функция для добавления центра в избранное
+    const handleAddToFavorites = async () => {
+        if (!userId) {
+            alert('Пожалуйста, войдите в систему, чтобы добавить в избранное.');
+            return;
+        }
+
+        try {
+            await axios.get(`http://89.169.150.251:8081/institution/${id}/tofavorites/${userId}`);
+            alert('Центр успешно добавлен в избранное!');
+        } catch (error) {
+            console.error('Ошибка при добавлении центра в избранное:', error);
+            alert('Произошла ошибка при добавлении в избранное.');
+        }
+    };
+
     // Функция для бронирования услуги
     const handleBookService = async (serviceId, courseName) => {
         const reservationData = {
@@ -97,6 +113,8 @@ function FitnessPage() {
                     <h1 className="center-name">{centerData.name}</h1>
                     <p className="address">{centerData.address}</p>
                     <p className="rating">Рейтинг: {centerData.rating ? centerData.rating.toFixed(1) : '0'}</p>
+                    <button className="add-to-favorites" onClick={handleAddToFavorites}>Добавить в избранное</button>
+                    {/* Кнопка "Добавить в избранное" */}
                 </div>
                 <div className="center-image-container">
                     <img src={centerData.image} alt={centerData.name} className="center-image"/>
