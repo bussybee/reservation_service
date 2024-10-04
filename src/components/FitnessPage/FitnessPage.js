@@ -17,7 +17,10 @@ function FitnessPage() {
             try {
                 const response = await axios.get(`http://89.169.150.251:8081/institution/${id}`); // id центра в URL
                 setCenterData(response.data);
-                setComments(response.data.comments || []);
+
+                // Загружаем комментарии центра
+                const commentsResponse = await axios.get(`http://89.169.150.251:8081/comments/${id}`);
+                setComments(commentsResponse.data); // Обновляем комментарии
                 setServices(response.data.services || []); // Предполагаем, что услуги приходят с центром
             } catch (error) {
                 console.error('Ошибка при получении данных о центре:', error);
@@ -27,39 +30,22 @@ function FitnessPage() {
         fetchCenterData();
     }, [id]);
 
-    // Функция для добавления центра в избранное
-    const handleAddToFavorites = async () => {
-        if (!userId) {
-            alert('Пожалуйста, войдите в систему, чтобы добавить в избранное.');
-            return;
-        }
-
-        try {
-            await axios.get(`http://89.169.150.251:8081/institution/${id}/tofavorites/${userId}`);
-            alert('Центр успешно добавлен в избранное!');
-        } catch (error) {
-            console.error('Ошибка при добавлении центра в избранное:', error);
-            alert('Произошла ошибка при добавлении в избранное.');
-        }
-    };
-
     // Функция для бронирования услуги
     const handleBookService = async (serviceId, courseName) => {
         const reservationData = {
-            institutionName: centerData.name,  // не обязательно на сервере, но полезно для истории
-            courseName: courseName,  // имя курса
-            courseId: serviceId,  // id курса, который вы бронируете
-            userId,  // id пользователя, который делает бронирование, заменить на актуальный
+            institutionName: centerData.name,
+            courseName,
+            courseId: serviceId,
+            userId,
             clientname: localStorage.getItem('clientName'),
             email: localStorage.getItem('email'),
             phone: localStorage.getItem('phone'),
-            approved: false,  // Статус бронирования по умолчанию
-            completed: false,  // Завершен ли курс
+            approved: false,
+            completed: false,
         };
 
         try {
-            // Отправка данных о бронировании на сервер
-            await axios.post('http://89.169.150.251:8081/reservations', reservationData); // Добавьте свой endpoint
+            await axios.post('http://89.169.150.251:8081/reservations', reservationData);
             alert('Бронирование успешно!');
         } catch (error) {
             console.error('Ошибка при бронировании:', error);
@@ -70,22 +56,34 @@ function FitnessPage() {
     // Функция для добавления комментария
     const handleAddComment = async () => {
         const newComment = {
-            userId,
+            authorId: userId,
+            comment: userComment,
+            institutionId: id,
             rating: userRating,
-            comment: userComment
         };
 
         try {
-            // Отправка нового комментария на сервер
-            await axios.post(`http://89.169.150.251:8081/institution/${centerData.id}/comment`, newComment);
-            setComments([...comments, newComment]); // Обновляем состояние комментариев
-            // Сбросить состояние
-            setUserComment('');
-            setUserRating(0);
+            const response = await axios.post(`http://89.169.150.251:8081/institution/${id}/comment`, newComment);
+            setComments([...comments, response.data]); // Обновляем комментарии с сервера
+            setUserComment(''); // Очищаем поле комментария
+            setUserRating(0); // Сбрасываем рейтинг
         } catch (error) {
             console.error('Ошибка при добавлении комментария:', error);
             alert('Произошла ошибка при добавлении комментария');
         }
+    };
+
+    // Функция для отображения рейтинга в виде звёзд
+    const renderStars = (rating) => {
+        return [...Array(5)].map((_, i) => (
+            <span
+                key={i}
+                onClick={() => setUserRating(i + 1)}
+                className={userRating > i ? 'star selected' : 'star'}
+            >
+                &#9733;
+            </span>
+        ));
     };
 
     if (!centerData) {
@@ -99,10 +97,9 @@ function FitnessPage() {
                     <h1 className="center-name">{centerData.name}</h1>
                     <p className="address">{centerData.address}</p>
                     <p className="rating">Рейтинг: {centerData.rating ? centerData.rating.toFixed(1) : '0'}</p>
-                    <button className="add-to-favorites" onClick={handleAddToFavorites}>Добавить в избранное</button> {/* Кнопка "Добавить в избранное" */}
                 </div>
                 <div className="center-image-container">
-                    <img src={centerData.image} alt={centerData.name} className="center-image" />
+                    <img src={centerData.image} alt={centerData.name} className="center-image"/>
                 </div>
             </div>
 
@@ -113,7 +110,8 @@ function FitnessPage() {
                         {services.map(service => (
                             <li key={service.id}>
                                 {service.courseName} - {service.startTime} - {service.duration} ч.
-                                <button onClick={() => handleBookService(service.id, service.courseName)}>Записаться</button>
+                                <button
+                                    onClick={() => handleBookService(service.id, service.courseName)}>Записаться</button>
                             </li>
                         ))}
                     </ul>
@@ -128,7 +126,8 @@ function FitnessPage() {
                 <h2>Отзывы</h2>
                 {comments.map((comment, index) => (
                     <div key={index} className="comment">
-                        <p>Оценка: {comment.rating}</p>
+                        <p><strong>{comment.authorName}</strong> - Оценка: {comment.rating}
+                        </p> {/* Отображаем имя автора */}
                         <p>{comment.comment}</p>
                     </div>
                 ))}
@@ -140,22 +139,23 @@ function FitnessPage() {
                         onChange={(e) => setUserComment(e.target.value)}
                         placeholder="Введите ваш отзыв"
                     />
-                    <div>
+                    <div className="rating-input">
                         {[1, 2, 3, 4, 5].map(value => (
                             <span
                                 key={value}
                                 onClick={() => setUserRating(value)}
-                                className={userRating >= value ? 'selected' : ''}
+                                className={userRating >= value ? 'star selected' : 'star'}
                             >
-                                &#9733;
-                            </span>
+                    &#9733;
+                </span>
                         ))}
                     </div>
                     <button onClick={handleAddComment}>Добавить отзыв</button>
                 </div>
             </div>
         </div>
-    );
+    )
+        ;
 }
 
 export default FitnessPage;
