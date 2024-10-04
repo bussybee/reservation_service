@@ -1,6 +1,7 @@
 /* EditCenters.css */
 
 .edit-center-container {
+    margin-top: 60px;
     padding: 30px;
     background-color: #f9f9f9; /* Светлый фон для контраста */
     border-radius: 10px; /* Закругленные углы */
