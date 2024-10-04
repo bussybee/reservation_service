@@ -54,4 +54,9 @@ public class CommentController {
     public ResponseEntity<CommentDTO> updateComment(@PathVariable Long id, @RequestBody CommentDTO commentDTO){
         return new ResponseEntity<>(service.updateComment(id, commentDTO), HttpStatus.OK);
     }
+
+    @GetMapping("/{institutionId}")
+    public ResponseEntity<List<CommentDTO>> getCommentsByInstitution(@PathVariable Long institutionId) {
+        return new ResponseEntity<>(service.getCommentsByInstitutionId(institutionId), HttpStatus.OK);
+    }
 }

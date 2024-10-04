@@ -13,6 +13,8 @@ public class CommentDTO {
 
     Long authorId;
 
+    String authorName;
+
     String comment;
 
     Long institutionId;
