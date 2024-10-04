@@ -17,7 +17,7 @@
 
 ## Документация
 - [Техническое задание](https://github.com/bussybee/reservation_service/blob/main/Документация/Техническое%20задание/Техническое%20задание.pdf)
-- [Курсовая работа](https://github.com/bussybee/reservation_service/blob/main/Документация/Курсовая%20работа/Курсовая%20работа.pdf)
+- [Курсовая работа](https://github.com/bussybee/reservation_service/blob/main/Документация/Курсовая%20работа/Курсовая%20работа.docx)
 - [Сопроводительное письмо](https://github.com/bussybee/reservation_service/blob/main/Документация/Сопроводительное%20письмо/Сопроводительное%20письмо.pdf)
 - [Презентация](https://github.com/bussybee/reservation_service/blob/main/Документация/Презентация/Презентация%20для%20защиты.pptx)
 
