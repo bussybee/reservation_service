@@ -15,9 +15,11 @@ function BeautySalonPage() {
     useEffect(() => {
         const fetchCenterData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/institution/${id}`);
+                const response = await axios.get(`http://89.169.150.251:8081/institution/${id}`);
                 setCenterData(response.data);
-                setComments(response.data.comments || []);
+
+                const commentsResponse = await axios.get(`http://89.169.150.251:8081/comments/${id}`);
+                setComments(commentsResponse.data);
                 setServices(response.data.services || []); // Предполагаем, что услуги приходят с салоном
             } catch (error) {
                 console.error('Ошибка при получении данных о салоне красоты:', error);
@@ -27,31 +29,75 @@ function BeautySalonPage() {
         fetchCenterData();
     }, [id]);
 
+    // Функция для добавления центра в избранное
+    const handleAddToFavorites = async () => {
+        if (!userId) {
+            alert('Пожалуйста, войдите в систему, чтобы добавить в избранное.');
+            return;
+        }
+
+        try {
+            await axios.get(`http://89.169.150.251:8081/institution/${id}/tofavorites/${userId}`);
+            alert('Центр успешно добавлен в избранное!');
+        } catch (error) {
+            console.error('Ошибка при добавлении центра в избранное:', error);
+            alert('Произошла ошибка при добавлении в избранное.');
+        }
+    };
+
     // Функция для бронирования услуги
     const handleBookService = async (serviceId, courseName) => {
         const reservationData = {
-            institutionName: centerData.name,  // не обязательно на сервере, но полезно для истории
-            courseName: courseName,  // имя курса
-            courseId: serviceId,  // id курса, который вы бронируете
-            userId,  // id пользователя, который делает бронирование
+            institutionName: centerData.name,
+            courseName: courseName,
+            courseId: serviceId,
+            userId,
             clientname: localStorage.getItem('clientName'),
             email: localStorage.getItem('email'),
             phone: localStorage.getItem('phone'),
-            approved: false,  // Статус бронирования по умолчанию
-            competed: false,  // Завершен ли курс
+            approved: false,
+            competed: false,
         };
-    
+
         try {
-            const response = await axios.post('http://localhost:8081/reservations', reservationData);
-            if (response.status === 201) {
-                alert('Вы успешно записались на услугу!');
-            } else {
-                alert('Ошибка при бронировании');
-            }
+            await axios.post('http://89.169.150.251:8081/reservations', reservationData);
+            alert('Бронирование успешно!');
         } catch (error) {
             console.error('Ошибка при бронировании:', error);
             alert('Произошла ошибка при бронировании');
         }
+    };
+
+    const handleAddComment = async () => {
+        const newComment = {
+            authorId: userId,
+            comment: userComment,
+            institutionId: id,
+            rating: userRating,
+        };
+
+        try {
+            const response = await axios.post(`http://89.169.150.251:8081/institution/${id}/comment`, newComment);
+            setComments([...comments, response.data]); // Обновляем комментарии с сервера
+            setUserComment(''); // Очищаем поле комментария
+            setUserRating(0); // Сбрасываем рейтинг
+        } catch (error) {
+            console.error('Ошибка при добавлении комментария:', error);
+            alert('Произошла ошибка при добавлении комментария');
+        }
+    };
+
+    // Функция для отображения рейтинга в виде звёзд
+    const renderStars = (rating) => {
+        return [...Array(5)].map((_, i) => (
+            <span
+                key={i}
+                onClick={() => setUserRating(i + 1)}
+                className={userRating > i ? 'star selected' : 'star'}
+            >
+                &#9733;
+            </span>
+        ));
     };
 
     if (!centerData) {
@@ -59,33 +105,36 @@ function BeautySalonPage() {
     }
 
     return (
-        <div className="beauty-salon-page">
+        <div className="fitness-page">
             <div className="center-details">
                 <div className="details">
                     <h1 className="center-name">{centerData.name}</h1>
                     <p className="address">{centerData.address}</p>
                     <p className="rating">Рейтинг: {centerData.rating ? centerData.rating.toFixed(1) : '0'}</p>
+                    <button className="add-to-favorites" onClick={handleAddToFavorites}>Добавить в избранное</button>
+                    {/* Кнопка "Добавить в избранное" */}
                 </div>
                 <div className="center-image-container">
-                    <img src={centerData.image} alt={centerData.name} className="center-image" />
+                    <img src={centerData.image} alt={centerData.name} className="center-image"/>
                 </div>
             </div>
 
             {services.length > 0 ? (
                 <div className="services-section">
-                    <h2>Услуги салона</h2>
+                    <h2>Услуги центра</h2>
                     <ul>
                         {services.map(service => (
                             <li key={service.id}>
                                 {service.courseName} - {service.startTime} - {service.duration} ч.
-                                <button onClick={() => handleBookService(service.id, service.courseName)}>Записаться</button>
+                                <button
+                                    onClick={() => handleBookService(service.id, service.courseName)}>Записаться</button>
                             </li>
                         ))}
                     </ul>
                 </div>
             ) : (
                 <div className="no-services">
-                    <h3>Салон временно не работает, приносим извинения за неудобства</h3>
+                    <h3>Центр временно не работает, приносим извинения за неудобства</h3>
                 </div>
             )}
 
@@ -93,7 +142,8 @@ function BeautySalonPage() {
                 <h2>Отзывы</h2>
                 {comments.map((comment, index) => (
                     <div key={index} className="comment">
-                        <p>Оценка: {comment.rating}</p>
+                        <p><strong>{comment.authorName}</strong> - Оценка: {comment.rating}
+                        </p> {/* Отображаем имя автора */}
                         <p>{comment.comment}</p>
                     </div>
                 ))}
@@ -105,18 +155,18 @@ function BeautySalonPage() {
                         onChange={(e) => setUserComment(e.target.value)}
                         placeholder="Введите ваш отзыв"
                     />
-                    <div>
+                    <div className="rating-input">
                         {[1, 2, 3, 4, 5].map(value => (
                             <span
                                 key={value}
                                 onClick={() => setUserRating(value)}
-                                className={userRating >= value ? 'selected' : ''}
+                                className={userRating >= value ? 'star selected' : 'star'}
                             >
-                                &#9733;
-                            </span>
+                    &#9733;
+                </span>
                         ))}
                     </div>
-                    <button>Добавить отзыв</button>
+                    <button onClick={handleAddComment}>Добавить отзыв</button>
                 </div>
             </div>
         </div>
