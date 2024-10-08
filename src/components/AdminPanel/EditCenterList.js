@@ -25,7 +25,7 @@ const EditCenterList = () => {
 
   const handleDeleteClick = async (id) => {
     try {
-      await axios.delete(`http://localhost:8081/institution/${id}`);
+      await axios.delete(`http://89.169.150.251:8081/institution/${id}`);
       setCenters(centers.filter(center => center.id !== id));
     } catch (error) {
       console.error('Ошибка при удалении центра:', error);

@@ -60,7 +60,7 @@ function SpaCenterPage() {
         };
 
         try {
-            await axios.post('http://localhost:8081/reservations', reservationData);
+            await axios.post('http://89.169.150.251:8081/reservations', reservationData);
             alert('Бронирование успешно!');
         } catch (error) {
             console.error('Ошибка при бронировании:', error);
@@ -77,7 +77,7 @@ function SpaCenterPage() {
         };
 
         try {
-            const response = await axios.post(`http://localhost:8081/institution/${id}/comment`, newComment);
+            const response = await axios.post(`http://89.169.150.251:8081/institution/${id}/comment`, newComment);
             setComments([...comments, response.data]); // Обновляем комментарии с сервера
             setUserComment(''); // Очищаем поле комментария
             setUserRating(0); // Сбрасываем рейтинг
