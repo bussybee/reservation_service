@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import ru.vsu.cs.maslova_e_i.util.Gender;
 import ru.vsu.cs.maslova_e_i.util.Role;
 
@@ -41,6 +43,7 @@ public class User {
     private String phoneNumber;
     String image;
     @ManyToMany(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinTable(name = "favorites", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "institution_id"))
     private Set<Institution> favorites;

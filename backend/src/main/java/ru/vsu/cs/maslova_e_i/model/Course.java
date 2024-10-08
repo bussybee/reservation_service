@@ -6,6 +6,8 @@ import jdk.jfr.Timestamp;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
 
@@ -30,6 +32,8 @@ public class Course {
     LocalDateTime startTime;
 
     Double duration;
+
+    Double cost;
 
     public LocalDateTime getEndTime() {
         return startTime.plusHours(duration.longValue());

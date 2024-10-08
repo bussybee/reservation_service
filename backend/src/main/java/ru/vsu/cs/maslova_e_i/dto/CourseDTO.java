@@ -16,4 +16,5 @@ public class CourseDTO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime startTime;
     Double duration;
+    Double cost;
 }

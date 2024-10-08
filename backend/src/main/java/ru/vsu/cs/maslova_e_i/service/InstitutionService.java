@@ -106,7 +106,7 @@ public class InstitutionService {
 
         Institution institution = institutionRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Institution", id));
-        institution.setRating(rating);
+        institution.setRating(Math.round(rating * 100.0) / 100.0);
         institutionRepository.save(institution);
     }
 
@@ -143,5 +143,16 @@ public class InstitutionService {
 
     public void deleteById(Long id) {
         institutionRepository.deleteById(id);
+    }
+
+    public void removeFromFavorites(Long userId, Long institutionId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ObjectNotFoundException("User", userId));
+        Institution institution = institutionRepository.findById(institutionId)
+                .orElseThrow(() -> new ObjectNotFoundException("Institution", institutionId));
+        if (user.getFavorites() != null) {
+            user.getFavorites().remove(institution);
+        }
+        userRepository.save(user);
     }
 }

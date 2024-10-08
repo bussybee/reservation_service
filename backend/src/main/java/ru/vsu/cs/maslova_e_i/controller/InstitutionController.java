@@ -89,9 +89,15 @@ public class InstitutionController {
         return new ResponseEntity<>(service.updateInstitution(id, institutionDTO), HttpStatus.OK);
     }
 
-    @GetMapping("institution/{institutionId}/tofavorites/{userId}")
+    @PostMapping("institution/{institutionId}/tofavorites/{userId}")
     public ResponseEntity<Void> addToFavorites(@PathVariable Long institutionId, @PathVariable Long userId) {
         service.addToFavoritesByUser(userId, institutionId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("institution/{institutionId}/tofavorites/{userId}")
+    public ResponseEntity<Void> removeFromFavorites(@PathVariable Long institutionId, @PathVariable Long userId) {
+        service.removeFromFavorites(userId, institutionId);
         return ResponseEntity.ok().build();
     }
 
