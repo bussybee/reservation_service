@@ -53,6 +53,12 @@ CREATE TABLE IF NOT EXISTS courses
         REFERENCES institutions (id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS favorites
+(
+    user_id        bigint references users (user_id) on delete cascade,
+    institution_id bigint references institutions (id) on delete cascade
+);
+
 ALTER TABLE comments
     DROP CONSTRAINT fk91rwy833vs26sus4vg1u1j2wi;
 ALTER TABLE comments
@@ -62,3 +68,8 @@ ALTER TABLE courses
     DROP CONSTRAINT fk9j9pt3rv7axxvf4l2svqpwus3;
 ALTER TABLE courses
     ADD CONSTRAINT fk9j9pt3rv7axxvf4l2svqpwus3 FOREIGN KEY (institution_id) REFERENCES institutions (id) ON DELETE CASCADE;
+
+ALTER TABLE favorites
+    DROP CONSTRAINT fk6acjx1wscwbwp1ipx28jtfxh9;
+ALTER TABLE favorites
+    ADD CONSTRAINT fk6acjx1wscwbwp1ipx28jtfxh9 FOREIGN KEY (institution_id) REFERENCES institutions (id) ON DELETE CASCADE;
