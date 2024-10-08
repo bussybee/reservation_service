@@ -23,15 +23,25 @@ const EditCenterList = () => {
     navigate(`/adminPanel/editCenters/${id}`);
   };
 
+  const handleDeleteClick = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8081/institution/${id}`);
+      setCenters(centers.filter(center => center.id !== id));
+    } catch (error) {
+      console.error('Ошибка при удалении центра:', error);
+    }
+  };
+
   return (
     <div className="edit-center-list">
       <h2>Список центров для редактирования</h2>
       <ul>
         {centers.map(center => (
-          <li key={center.id}>
-            <p>{center.name} - {center.address}</p>
-            <button onClick={() => handleEditClick(center.id)}>Редактировать</button>
-          </li>
+            <li key={center.id}>
+              <p>{center.name} - {center.address}</p>
+              <button onClick={() => handleEditClick(center.id)}>Редактировать</button>
+              <button onClick={() => handleDeleteClick(center.id)}>Удалить</button>
+            </li>
         ))}
       </ul>
     </div>

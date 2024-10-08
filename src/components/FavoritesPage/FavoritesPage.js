@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './FavoritesPage.css';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 function FavoritesPage() {
     const navigate = useNavigate();
     const [favorites, setFavorites] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [deletedIds, setDeletedIds] = useState([]);
 
     const userId = localStorage.getItem('userId'); // Получаем userId из localStorage
 
@@ -31,6 +32,32 @@ function FavoritesPage() {
 
         fetchFavorites();
     }, [userId]);
+
+    const handleDeleteFromFavorites = (centerId) => {
+        setFavorites(favorites.filter(center => center.id !== centerId));
+        setDeletedIds([...deletedIds, centerId]);
+
+        // Отправка запроса на удаление на сервер
+        deleteFromFavoritesServer(centerId);
+    };
+
+    const deleteFromFavoritesServer = async (centerId) => {
+        try {
+            const response = await fetch(`http://89.169.150.251:8081/institution/${centerId}/tofavorites/${userId}`, {
+                method: 'DELETE'
+            });
+
+            if (!response.ok) {
+                throw new Error('Ошибка при удалении центра из избранного');
+            }
+
+            // Удаляем ID из массива deletedIds после успешного удаления
+            setDeletedIds(deletedIds.filter(id => id !== centerId));
+        } catch (err) {
+            console.error(err);
+            // Обработка ошибок
+        }
+    };
 
     const handlePersAccButtonClick = () => {
         navigate('/personalAccount');
@@ -64,6 +91,7 @@ function FavoritesPage() {
                                 <p className="center-address">{center.address}</p>
                                 <p className="center-rating">Рейтинг: {center.rating}</p>
                                 <a href={`/fitnessPage/${center.id}`} className="center-link">Подробнее</a>
+                                <button onClick={() => handleDeleteFromFavorites(center.id)} className="delete-button">Удалить</button>
                             </div>
                         </div>
                     ))

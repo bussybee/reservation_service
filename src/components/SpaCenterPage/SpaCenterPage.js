@@ -37,7 +37,7 @@ function SpaCenterPage() {
         }
 
         try {
-            await axios.get(`http://89.169.150.251:8081/institution/${id}/tofavorites/${userId}`);
+            await axios.post(`http://89.169.150.251:8081/institution/${id}/tofavorites/${userId}`);
             alert('Центр успешно добавлен в избранное!');
         } catch (error) {
             console.error('Ошибка при добавлении центра в избранное:', error);
