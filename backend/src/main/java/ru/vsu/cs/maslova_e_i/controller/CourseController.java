@@ -68,4 +68,9 @@ public class CourseController {
     public ResponseEntity<List<CourseDTO>> getCoursesByInstitutionId(@PathVariable Long id) {
         return new ResponseEntity<>(service.getCoursesByInstitution(id), HttpStatus.OK);
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<CourseDTO> updateCourse(@PathVariable Long id, @RequestBody CourseDTO courseDTO) {
+        return new ResponseEntity<>(service.updateCourse(id, courseDTO), HttpStatus.OK);
+    }
 }

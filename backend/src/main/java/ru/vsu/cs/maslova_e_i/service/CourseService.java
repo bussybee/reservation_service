@@ -44,4 +44,10 @@ public class CourseService {
     public List<CourseDTO> getCoursesByInstitution(Long institutionId) {
         return repository.findAllByInstitutionId(institutionId).stream().map(mapper::toDto).collect(Collectors.toList());
     }
+
+    public CourseDTO updateCourse(Long id, CourseDTO courseDTO) {
+        Course course = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Course", id));
+        mapper.updateCourseFromDto(courseDTO, course);
+        return mapper.toDto(repository.save(course));
+    }
 }
