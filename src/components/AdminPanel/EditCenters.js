@@ -11,7 +11,8 @@ function EditCenters() {
     const [newService, setNewService] = useState({
         courseName: '',
         startTime: '',
-        duration: ''
+        duration: '',
+        cost: ''
     });
     const navigate = useNavigate();
 
@@ -50,6 +51,7 @@ function EditCenters() {
                   institutionId: id,
                   startTime: startTimeFormatted,
                   duration: parseFloat(newService.duration),
+                  cost: parseFloat(newService.cost),
               };
   
               const response = await axios.post("http://89.169.150.251:8081/course", courseData);
@@ -59,7 +61,7 @@ function EditCenters() {
                 // Обновите данные центра
                 const updatedCenterResponse = await axios.get(`http://89.169.150.251:8081/institution/${id}`);
                 setCenterData(updatedCenterResponse.data);
-                setNewService({ courseName: '', startTime: '', duration: '' });
+                setNewService({ courseName: '', startTime: '', duration: '', cost: '' });
             } else {
                   alert('Ошибка при создании услуги.');
               }
@@ -108,6 +110,15 @@ function EditCenters() {
                     onChange={handleServiceChange}
                     required
                 />
+                <label className="edit-center-label">Стоимость (в рублях)</label>
+                <input
+                    className="edit-center-input"
+                    type="number"
+                    name="cost"
+                    value={newService.cost}
+                    onChange={handleServiceChange}
+                    required
+                />
                 <button className="edit-center-button" type="submit">Добавить услугу</button>
             </form>
 
@@ -117,7 +128,7 @@ function EditCenters() {
                     <ul className="existing-services-list">
                         {centerData.services.map((service, index) => (
                             <li className="existing-service-item" key={index}>
-                                {service.courseName} - {service.startTime} - {service.duration} ч.
+                                {service.courseName} - {service.startTime} - {service.duration} ч. - {service.cost} руб.
                             </li>
                         ))}
                     </ul>

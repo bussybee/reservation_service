@@ -39,10 +39,12 @@ const EditCenterList = () => {
         {centers.map(center => (
             <li key={center.id}>
               <p>{center.name} - {center.address}</p>
-              <button onClick={() => handleEditClick(center.id)}>Редактировать</button>
-              <button onClick={() => handleDeleteClick(center.id)}>Удалить</button>
+              <div className="center-actions">
+                <button onClick={() => handleEditClick(center.id)}>Редактировать</button>
+                <button onClick={() => handleDeleteClick(center.id)}>Удалить</button>
+              </div>
             </li>
-        ))}
+          ))}
       </ul>
     </div>
   );

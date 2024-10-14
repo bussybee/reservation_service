@@ -41,7 +41,7 @@ function BeautySalonPage() {
             alert('Центр успешно добавлен в избранное!');
         } catch (error) {
             console.error('Ошибка при добавлении центра в избранное:', error);
-            alert('Произошла ошибка при добавлении в избранное.');
+            alert('Пожалуйста, войдите в систему');
         }
     };
 
@@ -125,7 +125,13 @@ function BeautySalonPage() {
                     <ul>
                         {services.map(service => (
                             <li key={service.id}>
-                                {service.courseName} - {service.startTime} - {service.duration} ч.
+                                {service.courseName} - {new Date(service.startTime).toLocaleString('ru-RU', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            })} - {service.duration} ч. - {service.cost} руб.
                                 <button
                                     onClick={() => handleBookService(service.id, service.courseName)}>Записаться</button>
                             </li>
