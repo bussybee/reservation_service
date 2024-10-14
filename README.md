@@ -13,7 +13,7 @@
 
 ## Сервисы
 - [Miro](https://miro.com/app/board/uXjVNqy_iNg=/)
-- [Yandex Tracker](https://tracker.yandex.ru/agile/board/1)
+- [Tracker](https://github.com/users/bussybee/projects/1)
 
 ## Документация
 - [Техническое задание](https://github.com/bussybee/reservation_service/blob/main/Документация/Техническое%20задание/Техническое%20задание.pdf)
