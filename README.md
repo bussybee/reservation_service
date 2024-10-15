@@ -28,6 +28,7 @@
 - [Видеопрезентация 1 аттестация](https://disk.yandex.ru/i/cDcGX5gsF9r1Hw)
 - [Видеопрезентация frontend](https://disk.yandex.ru/i/Avm1VDrWLjrddg)
 - [Видеопрезентация backend](https://disk.yandex.ru/i/6cBqOWHNegRSfg)
+- [Демонстрация приложения](https://disk.yandex.ru/i/r57P5qq9AYCmjg)
 
 ## Ссылки на код
 - [backend](https://github.com/bussybee/reservation_service/tree/backend)
