@@ -22,7 +22,7 @@
 - [Презентация](https://github.com/bussybee/reservation_service/blob/main/Документация/Презентация/Презентация%20для%20защиты.pptx)
 
 ## Аналитика 
-- [Яндекс Метрика](https://metrika.yandex.ru/stat/conversion_rate?id=97134881&period=today&group=dekaminute&accuracy=1&chart_type=line-chart&dimension_mode=tree&isSamplingEnabled=true)
+- [Яндекс Метрика](https://metrika.yandex.ru/stat/conversion_rate?cross_device_attribution=1&period=month&isMinSamplingEnabled=false&id=97134881&group=day)
 
 ## Видео
 - [Видеопрезентация 1 аттестация](https://disk.yandex.ru/i/cDcGX5gsF9r1Hw)
